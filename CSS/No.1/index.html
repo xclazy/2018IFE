@@ -52,11 +52,19 @@
     <br/>
     <button class="btn">戳我戳我</button>
     <script>
+        // 判断添加/删除样式名开关
+        var hasClass = false;
         // 按钮点击逻辑
         document.querySelector('.btn').onclick = function() {
             // 添加样式名触发过渡动效
+            if (!hasClass) {
+                hasClass = true;
+                return document.querySelector('.text').classList.add('active');
+            }
             document.querySelector('.text').classList.add('active');
             // 删除样式名
+            hasClass = false;
+            return document.querySelector('.text').classList.remove('active');
             setTimeout(function() {
                 document.querySelector('.text').classList.remove('active');
             }, 800)
