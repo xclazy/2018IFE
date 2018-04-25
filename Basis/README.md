@@ -1,2 +1,7 @@
-# 零基础学院
-零基础学院学习记录
+## 零基础学院
+
+=============
+
+### [第二天：给自己做一个在线简历吧](http://ife.baidu.com/course/detail/id/36)
+
+[作业](https://codepen.io/mt_tuanzi/pen/JvKJyW)
