@@ -1,7 +1,5 @@
 # 2018IFE
 
----
-
 ## 零基础学院
 
 * [课程](http://ife.baidu.com/college/detail/id/5)
