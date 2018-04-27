@@ -1,6 +1,6 @@
 
 html, body {
-  height: 100%;
+  min-height: 100%;
 }
 body {
   padding: 10px;
@@ -42,11 +42,12 @@ a:hover {
   text-decoration: underline;
 }
 .wrap {
+  position: relative;
   max-width: 640px;
   min-width: 420px;
   min-height: 100%;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 40px 100px;
   background-color: #ff8bac;
   border: 1px solid rgba(255, 255, 255, .85);
 }
