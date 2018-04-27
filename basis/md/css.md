@@ -50,3 +50,7 @@
                 linear-gradient(to bottom, yellow, #dddd00 50%, orange);
   }
   ```
+
+* `border-radius: 10px 20px 30px 40px/20px 50px 30px 10px; `
+  
+  斜杠前面的一组四个值分别表示四个角的水平半径；斜杠后面的一组四个值分别表示四个角的垂直半径。
