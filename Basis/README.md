@@ -1,7 +1,9 @@
-## 零基础学院
+### 零基础学院
 
-### 第二天：给自己做一个在线简历吧
+-------------------------
 
-* [课程](http://ife.baidu.com/course/detail/id/36)
+#### 练习一：简历
 
-* [作业](https://codepen.io/mt_tuanzi/pen/JvKJyW)
+* [路径](https://github.com/xclazy/2018IFE/tree/master/Basis)
+
+* <a href="https://xclazy.github.io/2018IFE/basis/exam/resume/index.html" target="_blank">demo</a>
