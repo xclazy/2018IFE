@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>No.2 - 初步接触 CSS 2D 变形</title>
+  <style>
+    .box {
+      display: inline-block;
+      width: 60px;
+      height: 68px;
+      margin: 30px;
+      font-size: 12px; 
+      border: 1px solid #ebebeb;
+      text-align: center;
+      line-height: 68px;
+    }
+    /* 左倾斜30度 */
+    .box-1 {
+      transform: skewX(30deg);
+      -ms-transform: skewX(30deg);		/* IE 9 */
+      -webkit-transform: skewX(30deg);	/* Safari and Chrome */
+      -o-transform: skewX(30deg);		/* Opera */
+      -moz-transform: skewX(30deg);		/* Firefox */
+    }
+    /* x压缩两倍 */
+    .box-2 {
+      transform: scaleX(.5);
+      -ms-transform: scaleX(.5);		/* IE 9 */
+      -webkit-transform: scaleX(.5);	/* Safari and Chrome */
+      -o-transform: scaleX(.5);		/* Opera */
+      -moz-transform: scaleX(.5);		/* Firefox */
+    }
+    /* 顺时针旋转45度 */
+    .box-3 {
+      transform: rotate(45deg);
+      -ms-transform: rotate(45deg);		/* IE 9 */
+      -webkit-transform: rotate(45deg);	/* Safari and Chrome */
+      -o-transform: rotate(45deg);		/* Opera */
+      -moz-transform: rotate(45deg);		/* Firefox */
+    }
+    /* x轴位移10px y轴位移20px */
+    .box-4 {
+      transform: translate(10px, 20px);
+      -ms-transform: translate(10px, 20px);		/* IE 9 */
+      -webkit-transform: translate(10px, 20px);	/* Safari and Chrome */
+      -o-transform: translate(10px, 20px);		/* Opera */
+      -moz-transform: translate(10px, 20px);		/* Firefox */
+    }
+    /* 包含上述所有 */
+    .box-5 {
+      transform: skewX(30deg) scaleX(.5) rotate(45deg) translate(10px, 20px);
+      -ms-transform: skewX(30deg) scaleX(.5) rotate(45deg) translate(10px, 20px);		/* IE 9 */
+      -webkit-transform: skewX(30deg) scaleX(.5) rotate(45deg) translate(10px, 20px);	/* Safari and Chrome */
+      -o-transform: skewX(30deg) scaleX(.5) rotate(45deg) translate(10px, 20px);		/* Opera */
+      -moz-transform: skewX(30deg) scaleX(.5) rotate(45deg) translate(10px, 20px);		/* Firefox */
+    }
+  </style>
+</head>
+<body>
+    <!-- 原图 -->
+    <div class="box">box0</div>
+    <!-- 左倾斜30度 -->
+    <div class="box box-1">box1</div>
+    <!-- x压缩两倍 -->
+    <div class="box box-2">box2</div>
+    <!-- 顺时针旋转45度 -->
+    <div class="box box-3">box3</div>
+    <!-- x轴位移10px y轴位移20px -->
+    <div class="box box-4">box4</div>
+    <!-- 包含上述所有 -->
+    <div class="box box-5">box5</div>
+</body>
+</html>
