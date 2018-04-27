@@ -4,16 +4,16 @@
 
 * [课程](http://ife.baidu.com/college/detail/id/5)
 
-* [作业](https://github.com/xclazy/2018IFE/tree/master/Basis)
+* [作业](https://github.com/xclazy/2018IFE/tree/master/basis)
 
 ### 设计师学院
 
 * [课程](http://ife.baidu.com/college/detail/id/8)
 
-* [作业](https://github.com/xclazy/2018IFE/tree/master/CSS)
+* [作业](https://github.com/xclazy/2018IFE/tree/master/css)
 
 ### MVVM学院
 
 * [课程](http://ife.baidu.com/college/detail/id/6)
 
-* [作业](https://github.com/xclazy/2018IFE/tree/master/MVVM)
+* [作业](https://github.com/xclazy/2018IFE/tree/master/mvvm)
