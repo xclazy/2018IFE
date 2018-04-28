@@ -44,10 +44,6 @@
                 border: 2px solid #000;
                 background: #fbf8f1;
                 border-radius: 100% 10% 50% 0% ;
-                -webkit-transition: transform .5s ease-in;
-                -moz-transition: transform .5s ease-in;
-                -o-transition: transform .5s ease-in;
-                transition: transform .5s ease-in;
             }
             .ear-wrap .right {
                 left: auto;
@@ -122,13 +118,14 @@
                 top: 45px;
                 /*top: 64px;*/
                 left: 18px;
+                transform: scaleX(.7);
                 border-radius: 50% 50% 50% 50%;
                 background: #e85a5e;
                 opacity: 0.0;
-                -webkit-transition: opacity .5s ease-in .2;
-                -moz-transition: opacity .5s ease-in .2;
-                -o-transition: opacity .5s ease-in .2;
-                transition: opacity .5s ease-in .2;
+                -webkit-transition: opacity .5s ease-in .2s;
+                -moz-transition: opacity .5s ease-in .2s;
+                -o-transition: opacity .5 ease-in .2s;
+                transition: opacity .5s ease-in .2s;
             }
             /* 鼻子 */
             .nose {
@@ -174,11 +171,34 @@
                 left: auto;
                 right: 0;
             }
+            /* 过渡一样的写一起 */
+            .ear,
+            .eye-bottom,
+            .eye-core {
+                -webkit-transition: transform .5s ease-out;
+                -moz-transition: transform .5s ease-out;
+                -o-transition: transform .5 ease-out;
+                transition: transform .5s ease-out;
+            }
             /*鼠标hover样式 写在这里*/
+            /* 眼睛 */
+            .face:hover .eye-wrap .eye-bottom {
+                transform: translateY(-18px);
+                -ms-transform: translateY(-18px);		/* IE 9 */
+                -webkit-transform: translateY(-18px);	/* Safari and Chrome */
+                -o-transform: translateY(-18px);		/* Opera */
+                -moz-transform: translateY(-18px);		/* Firefox */
+            }
+            .face:hover .eye-wrap .eye-core {
+                transform: scaleX(.85);
+                -ms-transform: scaleX(.85);		/* IE 9 */
+                -webkit-transform: scaleX(.85);	/* Safari and Chrome */
+                -o-transform: scaleX(.85);		/* Opera */
+                -moz-transform: scaleX(.85);		/* Firefox */
+            }
             /* 腮红 */
             .face:hover .eye-wrap .face-red {
                 /* width: 50px; */
-                transform: scaleX(.7);
                 opacity: .6;
             }
             /* 嘴巴 */
