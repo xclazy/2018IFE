@@ -1,0 +1,42 @@
+
+dt {
+    font-weight: bold;
+}
+dd {
+    margin: 0;
+}
+.wrap {
+    width: 750px;
+    margin-top: 20px;
+    background: hsl(215, 94%, 69%);
+    overflow: auto;
+    zoom: 1;
+    border: 1px solid #efefef;
+}
+.header {
+    float: left;
+    width: 20%;
+    padding-top: 50px;
+    text-align: center;
+    color: #fff;
+}
+.main {
+    float: left;
+    width: 80%;
+    padding-left: 20px;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+.item-list-1 dt, 
+.item-list-1 dd {
+    display: inline-block;
+}
+.item-list-1 dt {
+    margin-right: 5px;
+}
+.item-list-1 dd + dt {
+    margin-left: 25px;
+}
+.item-list-2 dd + dt {
+    margin-top: 15px;
+}

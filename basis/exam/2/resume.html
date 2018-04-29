@@ -5,8 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>三种简历</title>
+    <link type="text/css" rel="stylesheet" href="./style_1.css" id="link"/>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei';
+        }
+    </style>
 </head>
 <body>
+    <nav class="nav">
+        <span>切换样式 -></span>
+        <button class="style-btn" data-file="style_1">style_1.css</button>
+        <button class="style-btn" data-file="style_2">style_2.css</button>
+        <button class="style-btn" data-file="style_3">style_3.css</button>
+    </nav>
     <main class="wrap">
         <header class="header">
             <h1>简历</h1>
@@ -14,11 +26,63 @@
         <section class="main">
             <section class="item">
                 <h2 class="item-title">基本信息</h2>
-                <p><strong>姓名</strong> 张三</p>
-                <p><strong>性别</strong> 男</p>
-                <p><strong>应聘职位</strong> Web前端工程师</p>
+                <dl class="item-list item-list-1">
+                    <dt>姓名</dt>
+                    <dd>张三</dd>
+                    <dt>性别</dt>
+                    <dd>男</dd>
+                    <dt>应聘职位</dt>
+                    <dd>Web前端工程师</dd>
+                </dl>
+            </section>
+            <section class="item">
+                <h2 class="item-title">联系方式</h2>
+                <dl class="item-list item-list-1">
+                    <dt>手机</dt>
+                    <dd>12312341234</dd>
+                    <dt>Email</dt>
+                    <dd><a href="mailto:joinife@baidu.com" target="_blank">joinife@baidu.com</a></dd>
+                    <dt>个人主页</dt>
+                    <dd><a href="https://github.com/xclazy/2018IFE" target="_blank">GitHub</a></dd>
+                </dl>
+            </section>
+            <section class="item">
+                <h2 class="item-title">能力描述</h2>
+                <dl class="item-list item-list-2">
+                    <dt>技术能力</dt><dd>数量掌握HTML，CSS，JavaScript</dd>
+                    <br/>
+                    <dt>综合能力</dt><dd>良好的沟通，主动积极，努力勤奋</dd>
+                </dl>
+            </section>
+            <section class="item">
+                <h2 class="item-title">教育经历</h2>
+                <dl class="item-list item-list-2">
+                    <dt>本科</dt><dd>百度前端技术学院小薇学院</dd>
+                    <br/>
+                    <dt>研究生</dt><dd>百度前端技术学院大斌学院</dd>
+                </dl>
+            </section>
+            <section class="item">
+                <h2 class="item-title">项目经历</h2>
+                <dl class="item-list item-list-2">
+                    <dt>小度小度</dt><dd>作为前端工程师角色参与了ABC组件的开发</dd>
+                    <br/>
+                    <dt>SAN Doc</dt><dd>作为文档工程师参与了SAN Doc编写</dd>
+                </dl>
             </section>
         </section>
     </main>
+    <script>
+        var cssLink = document.getElementById("link");
+        var btn = document.querySelectorAll('.style-btn');
+
+        var length = btn.length;
+        for (var i = 0; i < length; i += 1) {
+            btn[i].onclick = function() {
+                var fileName = this.dataset.file;
+                cssLink.href = './' + fileName + '.css';
+            }
+        }
+    </script>
 </body>
 </html>

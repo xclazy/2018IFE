@@ -1,0 +1,23 @@
+
+dt {
+    font-weight: bold;
+}
+dd {
+    margin: 0;
+}
+.wrap {
+    padding-bottom: 50px;
+}
+.item-list-1 dt, 
+.item-list-1 dd {
+    display: inline-block;
+}
+.item-list-1 dt {
+    margin-right: 5px;
+}
+.item-list-1 dd + dt {
+    margin-left: 25px;
+}
+.item-list-2 dd + dt {
+    margin-top: 15px;
+}
