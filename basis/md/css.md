@@ -61,6 +61,24 @@
     * `content-box` : 背景裁剪到内容区 (content-box) 外沿。
     * `text` : 背景被裁剪为文字的前景色(只有chrome支持)。
 
+  * `flex-flow` flex-direction 和 flex-wrap 缩写
+
+    ```css
+    div {
+      flex-direction: row;
+      flex-wrap;
+    }
+    /* 等同 */
+    div {
+      flex-flow: row wrap;
+    }
+    ```
+  * `order` 改变flex项的布局位置，不会影响到DOM顺序
+
+    * 所有flex项默认 `order` 为0
+    * `order` 值大的显示顺序靠后，可设负值
+    * 相同值按DOM顺序排列
+
 ---------------------------
 
 #### 层叠和继承

@@ -13,6 +13,10 @@
 * #### 练习二：三种简历
 
     <a href="http://ife.baidu.com/course/detail/id/40" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/basis/exam/2/resume.html" target="_blank">作业</a>
+
+* #### 练习三：学习布局
+
+    <a href="http://ife.baidu.com/course/detail/id/42" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/basis/exam/3/" target="_blank">作业</a>
     
 ----------------
 

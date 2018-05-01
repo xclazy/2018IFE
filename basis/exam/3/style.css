@@ -1,0 +1,132 @@
+body {
+    margin: 0;
+    min-width: 960px;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+}
+a {
+    color: inherit;
+}
+h1, p, ul {
+    margin: 0;
+}
+ul {
+    padding: 0;
+}
+li {
+    list-style: none;
+}
+/* 通用 */
+.main {
+    position: relative;
+    width: 960px;
+    height: 100%;
+    margin: 0 auto;
+}
+/* 头部 */
+.top {
+    height: 80px;
+    color: #fff;
+    background-color: #333;
+}
+.logo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    line-height: 80px;
+}
+.nav {
+    position: absolute;
+    right: 0;
+    top: 10px;
+}
+.nav-item {
+    margin: 0 2px;
+}
+/* banner */
+.banner {
+    position: relative;
+    height: 300px;
+    background-color: #66bb33;
+}
+.banner-bullets {
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    width: 480px;
+}
+.banner-bullet {
+    display: inline-flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 28px;
+    height: 34px;
+    margin-left: 5px;
+    line-height: 34px;
+    border: 1px solid #000;
+    background-color: #fff;
+    opacity: .5;
+}
+.banner-bullet.active {
+    height: 48px;
+    opacity: .8;
+}
+/* 中间导航 */
+.tabs {
+    height: 70px;
+    border-bottom: 1px solid #dddddd;
+}
+.tabs-item {
+    float: left;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 51px;
+    padding: 0 30px;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    background-color: #eeeeee;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-sizing: border-box;
+}
+.tabs-item.active {
+    border-color: #ccc;
+    border-bottom-color: #fff;
+    background-color: #fff;
+}
+/* 内容主体 */
+.content .main {
+    padding-bottom: 20px;
+}
+.content-box {
+    display: flex;
+}
+.content-item {
+    flex: 1;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 176px;
+    padding: 80px;
+    margin: 10px 10px 0 0;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+.content-box:first-child .content-item:not(:last-child) {
+    flex: 1 25%;
+}
+/* 底部 */
+.footer {
+    height: 120px;
+    padding-top: 15px;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    background-color: #666666;
+    box-sizing: border-box;
+}
