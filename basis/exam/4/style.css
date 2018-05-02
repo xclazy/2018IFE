@@ -1,0 +1,403 @@
+/* 引入字体 */
+@font-face {
+  font-family: 'Montserrat-ExtraLight';
+  src: url('./font/Montserrat-ExtraLight.ttf') format('truetype');
+  /* font-weight: normal;
+  font-style: normal; */
+}
+/* reset */
+body {
+  margin: 0;
+  font: 16px/1.5 'Montserrat-ExtraLight', Geneva, sans-serif;
+  color: #141414;
+}
+h1,
+h2 {
+  font-weight: normal;
+}
+h1, 
+h2, 
+p,
+ul {
+  margin: 0;
+}
+ul {
+  padding: 0;
+}
+li {
+  list-style: none;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+input, textarea {
+  border: none;
+  color: inherit;
+  background: none;
+  outline: none;
+}
+
+/* 公用样式 */
+.box {
+  width: 100%;
+  /* 保证所有内容可视，取内容块中最宽的尺寸 */
+  min-width: 1170px;
+  overflow: hidden;
+}
+.main {
+  position: relative;
+  width: 970px;
+  margin: 0 auto;
+}
+.title {
+  font-size: 42px;
+}
+.text {
+  text-align: center;
+}
+.list {
+  overflow: hidden;
+}
+
+/* 顶部/模块一 */
+.box-fir {
+  position: relative;
+  height: 990px;
+  color: #fff;
+}
+.box-fir:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 1660px;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  background-image: url(./img/fir_bg.jpg);
+  background-size: 100% auto; 
+}
+.box-fir .main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.box-fir .title {
+  font-size: 62px;
+  margin-bottom: 50px;
+}
+.box-fir .text {
+  width: 770px;
+  font-size: 20px;
+  opacity: .7;
+}
+.box-fir .form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 250px;
+  margin-top: 95px;
+  border: 1px solid rgba(255, 255, 255, .2);
+  box-sizing: border-box;
+}
+.box-fir .form-text {
+  margin: 10px 0 40px;
+  font-size: 12px;
+  opacity: .3;
+}
+.box-fir .form-main {
+  line-height: 50px;
+}
+.box-fir .form-input {
+  width: 292px;
+  height: 50px;
+  padding: 0 21px;
+  margin-right: 56px;
+  font-size: 14px;
+  border: 1px solid rgba(255, 255, 255, .2);
+  box-sizing: border-box;
+}
+.box-fir .form-input::placeholder {
+  color: rgba(255, 255, 255, .3);
+}
+.box-fir .form-submit {
+  width: 125px;
+  height: 50px;
+  margin-left: -10px;
+  border-radius: 2px;
+  color: #141414;
+  background-color: #fff;
+  text-align: center;
+}
+
+/* 模块二 */
+.box-sec {
+  height: 710px;
+  text-align: center;
+}
+.box-sec .main {
+  width: 1040px;
+}
+.box-sec .title {
+  width: 700px;
+  padding-top: 133px;
+  margin: 0 auto 70px;
+  line-height: 1;
+}
+.box-sec .text {
+  position: absolute;
+  left: 0;
+  top: 80px;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 30px;
+}
+.box-sec .item {
+  float: left;
+  position: relative;
+  width: 440px;
+  height: 166px;
+  padding-left: 74px;
+  text-align: left;
+  box-sizing: border-box;
+}
+.box-sec .item:nth-child(even) {
+  margin-left: 160px;
+}
+.box-sec .item-title {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+.box-sec .item-text {
+  opacity: .7;
+}
+.box-sec .icon {
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 50px;
+  height: 50px;
+  background-image: url(./img/sec_icon.png);
+}
+.box-sec .icon-sec {
+  background-position: 0 -60px;
+}
+.box-sec .icon-thi {
+  background-position: 0 -120px;
+}
+.box-sec .icon-fou {
+  background-position: 0 bottom;
+}
+
+/* 模块三 */
+.box-thi {
+  position: relative;
+  height: 800px;
+  color: #fff;
+}
+.box-thi:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 1660px;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  background: url(./img/third_bg.jpg) center top;
+  background-size: 100% auto; 
+}
+.box-thi .title {
+  padding-top: 175px;
+  margin-bottom: 20px;
+  line-height: 52px;
+}
+.box-thi .title,
+.box-thi .text {
+  width: 400px;
+}
+.box-thi .text {
+  margin-bottom: 50px;
+  font-size: 18px;
+  text-align: left;
+  opacity: .7;
+}
+.box-thi .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 240px;
+  height: 60px;
+  border-radius: 2px;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+.box-thi .btn-fir {
+  margin-right: 30px;
+  font-weight: 600;
+  color: #141414;
+  background-color: #fff;
+}
+.box-thi .btn-sec {
+  border: 1px solid rgba(255, 255, 255, .3);
+  color: #fff;
+}
+
+/* 模块三 - ipad */
+.ipad {
+  position: absolute;
+  top: 133px;
+  left: 50%;
+  width: 100%;
+  height: 542px;
+  margin-left: 212px;
+  background: url(./img/third_pic.png) left center no-repeat;
+}
+.ipad:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -28px;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border: 1px solid rgba(211, 211, 211, .5);
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+.ipad:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -60px;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 600px;
+  border: 1px solid rgba(211, 211, 211, .5);
+  border-radius: 34px;
+  box-sizing: border-box;
+}
+
+/* 模块四 */
+.box-fou {
+  height: 580px;
+  padding-top: 90px;
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+  box-sizing: border-box;
+}
+.box-fou .title {
+  text-align: center;
+  margin-bottom: 72px;
+}
+.box-fou .list {
+  display: flex;
+}
+.box-fou .item {
+  flex: 1;
+  padding: 0 10px;
+  line-height: 26px;
+  text-align: center;
+  word-break: break-all;
+  box-sizing: border-box;
+}
+.box-fou .item:nth-child(2) {
+  margin: 0 85px;
+}
+.box-fou .logo {
+  display: block;
+  width: 120px;
+  height: 38px;
+  margin: 0 auto 30px;
+  background-image: url(./img/four_logo.png);
+}
+
+/* 模块五 */
+.box-fif {
+  padding: 114px 0 105px;
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+.box-fif .item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 350px;
+}
+.box-fif .item + .item {
+  margin-top: 80px;
+}
+.box-fif .item-pic {
+  position: absolute;
+  top: 0;
+  width: 570px;
+  height: 350px;
+  vertical-align: top;
+}
+.box-fif .item:nth-child(odd) {
+  padding-left: 670px;
+}
+.box-fif .item:nth-child(odd) .item-pic {
+  left: 0;
+}
+.box-fif .item:nth-child(even) {
+  padding-right: 600px;
+}
+.box-fif .item:nth-child(even) .item-pic {
+  right: 0;
+}
+.box-fif .item-title {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.box-fif .item-text {
+  width: 300px;
+  opacity: .7;
+}
+
+/* 模块六 */
+.box-six {
+  padding: 80px 0 70px;
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+.box-six .main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.box-six .title {
+  line-height: 50px;
+  margin-bottom: 20px;
+}
+.box-six .text {
+  width: 700px;
+  margin-bottom: 60px;
+}
+.box-six .item {
+  float: left;
+  position: relative;
+  width: 470px;
+  height: 340px;
+}
+.box-six .item:nth-child(even) {
+  margin-left: 30px;
+  margin-bottom: 30px;
+}
+.box-six .item-pic {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+  z-index: -1;
+}
+.box-six .item-main {
+  
+}
