@@ -31,8 +31,13 @@ a {
   color: inherit;
   text-decoration: none;
 }
-input, textarea {
+address {
+  font-style: normal;
+}
+input, 
+textarea {
   border: none;
+  font: inherit;
   color: inherit;
   background: none;
   outline: none;
@@ -399,5 +404,137 @@ input, textarea {
   z-index: -1;
 }
 .box-six .item-main {
-  
+  width: 100%;
+  height: 100%;
+  padding-top: 105px;
+  color: #fff;
+  text-align: center;
+  background-color: rgba(0, 0, 0, .65); 
+  box-sizing: border-box;
+  cursor: pointer;
+  opacity: 0;
+}
+.box-six .item-main:hover {
+  opacity: 1;
+}
+.box-six .item-title {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+.box-six .item-text {
+  margin-bottom: 45px;
+  font-size: 12px;
+  opacity: .4;
+}
+.box-six .item-btn {
+  position: relative;
+  display: inline-block;
+  width: 21px;
+  height: 21px;
+  background-image: url(./img/six_icon.png);
+}
+.box-six .item-btn:after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 50%;
+}
+.box-six .item-btn--sec {
+  margin: 0 58px;
+  background-position: 0 -31px;
+}
+.box-six .item-btn--thi {
+  background-position: 0 bottom;
+}
+/* 模块七 */
+.box-sev {
+  height: 560px;
+  padding: 70px 0;
+}
+.box-sev .main {
+  padding-left: 600px;
+  box-sizing: border-box;
+}
+.box-sev .title {
+  padding-top: 70px;
+  padding-bottom: 15px;
+}
+.box-sev .text {
+  margin-bottom: 60px;
+  opacity: .7;
+  text-align: left;
+}
+.box-sev .addr-item {
+  margin-bottom: 25px;
+  font-weight: 600;
+  overflow: hidden;
+}
+.box-sev .icon {
+  /* display: inline-block; */
+  float: left;
+  width: 25px;
+  height: 25px;
+  margin-top: 3px;
+  margin-right: 15px;
+  background-image: url(./img/sev_icon.png);
+  vertical-align: top;
+}
+.box-sev .icon-sec {
+  background-position: 0 -35px;
+}
+.box-sev .icon-thi {
+  background-position: 0 bottom;
+}
+.box-sev .form {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 470px;
+  height: 560px;
+  padding-top: 45px;
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+.box-sev .form-title {
+  margin-bottom: 40px;
+  font-weight: 600;
+}
+.box-sev .form-input,
+.box-sev .form-textarea{
+  width: 370px;
+  padding: 15px 20px;
+  margin-bottom: 30px;
+  line-height: 18px;
+  border: 1px solid rgba(0, 0, 0, .2);
+  border-radius: 1px;
+  box-sizing: border-box;
+}
+.box-sev .form-input::placeholder,
+.box-sev .form-textarea::placeholder {
+  color: rgba(20, 20, 20, .5);
+}
+.box-sev .form-textarea {
+  height: 142px;
+  resize: none;
+}
+.box-sev .form-btn {
+  width: 370px;
+  height: 50px;
+  font-size: 12px;
+  color: #fff;
+  background-color: #000;
+}
+/* 底部 */
+.footer {
+  color: #fff;
+  background-color: #141414;
 }
