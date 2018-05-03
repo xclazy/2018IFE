@@ -22,8 +22,3 @@
 
     <a href="http://ife.baidu.com/course/detail/id/43" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/basis/exam/4/index.html" target="_blank">作业</a>
     
-----------------
-
-* #### 笔记
-
-    <a href="https://github.com/xclazy/2018IFE/blob/master/basis/md/css.md" target="_blank">css</a>
