@@ -184,7 +184,7 @@ input[type="submit"] {
   font-size: 20px;
 }
 .box-sec .item-text {
-  opacity: .7;
+  color: rgba(0, 0, 0, .7);
 }
 .box-sec .icon {
   position: absolute;
@@ -367,7 +367,7 @@ input[type="submit"] {
 }
 .box-fif .item-text {
   width: 300px;
-  opacity: .7;
+  color: rgba(0, 0, 0, .7);
 }
 
 /* 模块六 */
@@ -470,7 +470,7 @@ input[type="submit"] {
 }
 .box-sev .text {
   margin-bottom: 60px;
-  opacity: .7;
+  color: rgba(0, 0, 0, .7);
   text-align: left;
 }
 .box-sev .addr-item {
