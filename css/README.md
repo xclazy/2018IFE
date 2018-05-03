@@ -19,3 +19,7 @@
 * #### No.4 - 3D 空间的卡片翻转动效
 
     <a href="http://ife.baidu.com/course/detail/id/31" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/css/4/index.html" target="_blank">作业</a>
+
+* #### No.5 - 纯 CSS 制作绕中轴旋转的立方体
+
+    <a href="http://ife.baidu.com/course/detail/id/32" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/css/5/index.html" target="_blank">作业</a>
