@@ -23,3 +23,7 @@
 * #### No.5 - 纯 CSS 制作绕中轴旋转的立方体
 
     <a href="http://ife.baidu.com/course/detail/id/32" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/css/5/index.html" target="_blank">作业</a>
+
+* #### No.6 - 利用 CSS animation 制作一个炫酷的 Slider
+
+    <a href="http://ife.baidu.com/course/detail/id/33" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/css/6/index.html" target="_blank">作业</a>

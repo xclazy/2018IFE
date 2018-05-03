@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>No.6 - 利用 CSS animation 制作一个炫酷的 Slider</title>
+    <style>
+        /* 只兼容火狐/Chrome/Safari */
+        /* 五种动画切入效果 */
+        /* 一 */
+        @keyframes a1 {
+            from {
+                -webkit-transform: translateX(-500px); /* Safari 和 Chrome */
+                   -moz-transform: translateX(-500px); 	/* Firefox */
+                        transform: translateX(-500px);
+            }
+            to {
+                -webkit-transform: translateX(0); /* Safari 和 Chrome */
+                   -moz-transform: translateX(0); 	/* Firefox */
+                        transform: translateX(0);
+            }
+        }
+        @-moz-keyframes a1 {
+            from {
+                -moz-transform: translateX(-500px); 	/* Firefox */
+            }
+            to {
+                -moz-transform: translateX(0); 	/* Firefox */
+            }
+        }
+        @-webkit-keyframes a1 {
+            from {
+                -webkit-transform: translateX(-500px); /* Safari 和 Chrome */
+            }
+            to {
+                -webkit-transform: translateX(0); /* Safari 和 Chrome */
+            }
+        }
+        /* 2 */
+        @keyframes a2 {
+            from {
+                -webkit-transform: translateY(-300px); /* Safari 和 Chrome */
+                   -moz-transform: translateY(-300px); 	/* Firefox */
+                        transform: translateY(-300px);
+            }
+            to {
+                -webkit-transform: translateY(0); /* Safari 和 Chrome */
+                   -moz-transform: translateY(0); 	/* Firefox */
+                        transform: translateY(0);
+            }
+        }
+        @-moz-keyframes a2 {
+            from {
+                -moz-transform: translateY(-300px); 	/* Firefox */
+            }
+            to {
+                -moz-transform: translateY(0); 	/* Firefox */
+            }
+        }
+        @-webkit-keyframes a2 {
+            from {
+                -webkit-transform: translateY(-300px); /* Safari 和 Chrome */
+            }
+            to {
+                -webkit-transform: translateY(0); /* Safari 和 Chrome */
+            }
+        }
+        /* 3 */
+        @keyframes a3 {
+            from {
+                -webkit-transform: scale(.1); /* Safari 和 Chrome */
+                   -moz-transform: scale(.1); 	/* Firefox */
+                        transform: scale(.1);
+            }
+            to {
+                -webkit-transform: scale(1); /* Safari 和 Chrome */
+                   -moz-transform: scale(1); 	/* Firefox */
+                        transform: scale(1);
+            }
+        }
+        @-moz-keyframes a3 {
+            from {
+                -moz-transform: scale(.1); 	/* Firefox */
+            }
+            to {
+                -moz-transform: scale(1); 	/* Firefox */
+            }
+        }
+        @-webkit-keyframes a3 {
+            from {
+                -webkit-transform: scale(.1); /* Safari 和 Chrome */
+            }
+            to {
+                -webkit-transform: scale(1); /* Safari 和 Chrome */
+            }
+        }
+        /* 4 */
+        @keyframes a4 {
+            from {
+                -webkit-transform: scale(2); /* Safari 和 Chrome */
+                   -moz-transform: scale(2); 	/* Firefox */
+                        transform: scale(2);
+            }
+            to {
+                -webkit-transform: scale(1); /* Safari 和 Chrome */
+                   -moz-transform: scale(1); 	/* Firefox */
+                        transform: scale(1);
+            }
+        }
+        @-moz-keyframes a4 {
+            from {
+                -moz-transform: scale(2); 	/* Firefox */
+            }
+            to {
+                -moz-transform: scale(1); 	/* Firefox */
+            }
+        }
+        @-webkit-keyframes a4 {
+            from {
+                -webkit-transform: scale(2); /* Safari 和 Chrome */
+            }
+            to {
+                -webkit-transform: scale(1); /* Safari 和 Chrome */
+            }
+        }
+        /* 5 */
+        @keyframes a5 {
+            from {
+                -webkit-transform: scale(.1) rotate(-360deg); /* Safari 和 Chrome */
+                   -moz-transform: scale(.1) rotate(-360deg); 	/* Firefox */
+                        transform: scale(.1) rotate(-360deg);
+            }
+            to {
+                -webkit-transform: scale(1) rotate(0); /* Safari 和 Chrome */
+                   -moz-transform: scale(1) rotate(0); 	/* Firefox */
+                        transform: scale(1) rotate(0);
+            }
+        }
+        @-moz-keyframes a5 {
+            from {
+                -moz-transform: scale(.1) rotate(-360deg); 	/* Firefox */
+            }
+            to {
+                -moz-transform: scale(1) rotate(0); 	/* Firefox */
+            }
+        }
+        @-webkit-keyframes a5 {
+            from {
+                -webkit-transform: scale(.1) rotate(-360deg); /* Safari 和 Chrome */
+            }
+            to {
+                -webkit-transform: scale(1) rotate(0); /* Safari 和 Chrome */
+            }
+        }
+        /* reset */
+        body {
+            margin: 0;
+        }
+        .main {
+            position: relative;
+            width: 1440px;
+            height: 810px;
+            overflow: hidden;
+        }
+        /* 底部控件 */
+        .btns {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            width: 1050px;
+            -webkit-transform: translateX(-50%);/* Safari 和 Chrome */
+               -moz-transform: translateX(-50%); 	/* Firefox */
+                    transform: translateX(-50%);
+            z-index:10;
+        }
+        .btn {
+            float: left;
+            position: relative;
+            width: 200px;
+            margin: 0 5px;
+            /* 透明遮罩 */
+            filter: brightness(50%);
+            cursor: pointer;
+        }
+        .btn:hover {
+            filter: brightness(100%);
+        }
+        /* 大图 */
+        .box-pic {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .box-pic.pre {
+            z-index: 1;
+        }
+        .box-pic.active {
+            z-index: 2;
+        }
+        .box-pic:nth-child(1).active {
+            -webkit-animation: a1 .5s ease-out;	/* Safari 和 Chrome */
+               -moz-animation: a1 .5s ease-out;	/* Firefox */
+                    animation: a1 .5s ease-out;
+        }
+        .box-pic:nth-child(2).active {
+            -webkit-animation: a2 .5s ease-out;	/* Safari 和 Chrome */
+               -moz-animation: a2 .5s ease-out;	/* Firefox */
+                    animation: a2 .5s ease-out;
+        }
+        .box-pic:nth-child(3).active {
+            -webkit-animation: a3 1s ease-in;	/* Safari 和 Chrome */
+               -moz-animation: a3 1s ease-in;	/* Firefox */
+                    animation: a3 1s ease-in;
+        }
+        .box-pic:nth-child(4).active {
+            -webkit-animation: a4 1s ease-out;	/* Safari 和 Chrome */
+               -moz-animation: a4 1s ease-out;	/* Firefox */
+                    animation: a4 1s ease-out;
+        }
+        .box-pic:nth-child(5).active {
+            -webkit-animation: a5 .7s ease-in-out;	/* Safari 和 Chrome */
+               -moz-animation: a5 .7s ease-in-out;	/* Firefox */
+                    animation: a5 .7s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="box">
+            <img src="./img/1.jpg" alt="1" class="box-pic pre">
+            <img src="./img/2.jpg" alt="2" class="box-pic">
+            <img src="./img/3.jpg" alt="3" class="box-pic">
+            <img src="./img/4.jpg" alt="4" class="box-pic">
+            <img src="./img/5.jpg" alt="5" class="box-pic">
+        </div>
+        <div class="btns">
+            <img src="./img/1.jpg" alt="1" class="btn">
+            <img src="./img/2.jpg" alt="2" class="btn">
+            <img src="./img/3.jpg" alt="3" class="btn">
+            <img src="./img/4.jpg" alt="4" class="btn">
+            <img src="./img/5.jpg" alt="5" class="btn">
+        </div>
+    </div>
+    <script>
+        var pics = document.querySelectorAll('.box-pic');
+        var btns = document.querySelectorAll('.btn');
+        var prepIndex = 0; // 上上一个显示的图片的下标, 用于遮挡其他图片
+        var preIndex = 0; // 上一个显示的图片的下标
+        var l = btns.length; // 图片总数
+        for (var i = 0; i < l; i += 1) {
+            (function(i) {
+                btns[i].onclick = function() {
+                    console.log(i)
+                    pics[prepIndex].classList.remove('pre');
+                    pics[preIndex].classList.remove('active');
+                    pics[preIndex].classList.add('pre');
+                    pics[i].classList.add('active');
+                    prepIndex = preIndex;
+                    preIndex = i;
+                }
+            })(i)
+        }
+    </script>
+</body>
+</html>
