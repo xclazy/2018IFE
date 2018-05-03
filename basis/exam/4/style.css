@@ -7,6 +7,8 @@
 }
 /* reset */
 body {
+  /* 保证所有内容可视，取内容块中最宽的尺寸 */
+  min-width: 1170px;
   margin: 0;
   font: 16px/1.5 'Montserrat-ExtraLight', Geneva, sans-serif;
   color: #141414;
@@ -42,12 +44,14 @@ textarea {
   background: none;
   outline: none;
 }
+input[type="submit"] {
+  cursor: pointer;
+}
 
 /* 公用样式 */
 .box {
   width: 100%;
-  /* 保证所有内容可视，取内容块中最宽的尺寸 */
-  min-width: 1170px;
+  /* min-width: 1170px; */
   overflow: hidden;
 }
 .main {
@@ -411,7 +415,6 @@ textarea {
   text-align: center;
   background-color: rgba(0, 0, 0, .65); 
   box-sizing: border-box;
-  cursor: pointer;
   opacity: 0;
 }
 .box-six .item-main:hover {
@@ -432,6 +435,7 @@ textarea {
   width: 21px;
   height: 21px;
   background-image: url(./img/six_icon.png);
+  cursor: pointer;
 }
 .box-six .item-btn:after {
   content: '';
@@ -515,7 +519,7 @@ textarea {
   margin-bottom: 30px;
   line-height: 18px;
   border: 1px solid rgba(0, 0, 0, .2);
-  border-radius: 1px;
+  border-radius: 2px;
   box-sizing: border-box;
 }
 .box-sev .form-input::placeholder,
@@ -532,9 +536,75 @@ textarea {
   font-size: 12px;
   color: #fff;
   background-color: #000;
+  border-radius: 2px;
 }
 /* 底部 */
 .footer {
   color: #fff;
   background-color: #141414;
+}
+.footer .main {
+  width: 1170px;
+  height: 410px;
+}
+.footer .list {
+  display: flex;
+  padding-top: 80px;
+  color: rgba(255, 255, 255, .3);
+}
+.footer .item {
+  flex: 1 170px;
+}
+.footer .item:last-child {
+  flex: 0 270px;
+}
+.footer .item + .item {
+  margin-left: 130px;
+}
+.footer .item-title {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+}
+.footer .item-link {
+  display: block;
+  margin-top: 22px;
+}
+.footer .item-text {
+  margin-top: 22px;
+  margin-bottom: 35px;
+}
+.footer .item-btns {
+  display: flex;
+  align-items: center;
+}
+.footer .icon {
+  height: 18px;
+  margin-right: 24px;
+  background-image: url(./img/footer_icon.png);
+}
+.footer .icon-fir {
+  width: 16px;
+}
+.footer .icon-sec {
+  width: 9px;
+  background-position-x: -26px;
+}
+.footer .icon-thi {
+  width: 24px;
+  background-position-x: -45px;
+}
+.footer .icon-fou {
+  width: 9px;
+  background-position-x: -79px;
+}
+.footer .icon-fif {
+  width: 14px;
+  background-position-x: -99px;
+}
+.footer .icon-six {
+  width: 16px;
+  background-position-x: right;
 }

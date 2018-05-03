@@ -18,6 +18,10 @@
 
     <a href="http://ife.baidu.com/course/detail/id/42" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/basis/exam/3/index.html" target="_blank">作业</a>
     
+* #### 练习四：来做一个漂亮的网站
+
+    <a href="http://ife.baidu.com/course/detail/id/43" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/basis/exam/4/index.html" target="_blank">作业</a>
+    
 ----------------
 
 * #### 笔记
