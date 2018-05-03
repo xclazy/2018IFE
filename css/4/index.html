@@ -11,7 +11,8 @@
       width: 250px;
       height: 350px;
       margin: 40px auto;
-      perspective: 1000px; /* 定义 3D 元素距视图的距离 */
+      -webkit-perspective: 1200px; /* 定义 3D 元素距视图的距离 */
+              perspective: 1200px;
     }
     .box-img {
       position: absolute;
@@ -19,19 +20,36 @@
       left: 0;
       width: 250px;
       height: 350px;
-      backface-visibility: hidden; /* 背对屏幕的时候不可见 */
-      transform-style: preserve-3d; /* 设为3D变换 */
-      transition: transform .8s ease-in-out;
+      -webkit-transition: transform .8s ease-in-out;
+         -moz-transition: transform .8s ease-in-out;
+           -o-transition: transform .8s ease-in-out;
+              transition: transform .8s ease-in-out;
+      -webkit-backface-visibility: hidden;/* 背对屏幕的时候不可见 */
+         -moz-backface-visibility: hidden;
+          -ms-backface-visibility: hidden;
+              backface-visibility: hidden; 
     }
     .box-img:last-child {
-        transform: rotateY(-180deg);
+      -webkit-trasnform: rotateY(-180deg);
+         -moz-trasnform: rotateY(-180deg);
+          -ms-transform: rotateY(-180deg);
+           -o-transform: rotateY(-180deg);
+              transform: rotateY(-180deg);
     }
     .box:hover .box-img:first-child {
-        transform: rotateY(180deg);
+      -webkit-trasnform: rotateY(180deg);
+         -moz-trasnform: rotateY(180deg);
+          -ms-transform: rotateY(180deg);
+           -o-transform: rotateY(180deg);
+              transform: rotateY(180deg);
     }
     .box-img:first-child,
     .box:hover .box-img:last-child {
-        transform: rotateY(0deg);
+      -webkit-trasnform: rotateY(0);
+         -moz-trasnform: rotateY(0);
+          -ms-transform: rotateY(0);
+           -o-transform: rotateY(0);
+              transform: rotateY(0);
     }
   </style>
 </head>
