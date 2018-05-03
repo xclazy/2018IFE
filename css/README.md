@@ -15,3 +15,7 @@
 * #### No.3 - CSS transition 和 CSS transform 配合制作动画
 
     <a href="http://ife.baidu.com/course/detail/id/30" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/css/3/index.html" target="_blank">作业</a>
+
+* #### No.4 - 3D 空间的卡片翻转动效
+
+    <a href="http://ife.baidu.com/course/detail/id/31" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/css/4/index.html" target="_blank">作业</a>

@@ -53,6 +53,13 @@
                   linear-gradient(to bottom, yellow, #dddd00 50%, orange);
     }
     ```
+  * `background-origin` 
+    
+    指定背景图片属性的原点位置，当 `backgournd-attachmenet: fixed` 该属性无效
+
+    * `padding-box` 从padding区域（含padding）开始显示背景图像。
+    * `border-box` 从border区域（含border）开始显示背景图像。
+    * `content-box` 从content区域开始显示背景图像。
 
   * `background-clip`  设置元素的背景（背景图片或颜色）是否延伸到边框下面
 
@@ -170,3 +177,8 @@
       * 如果参与折叠的外边距中包含负值，折叠后的外边距的值为最大的正边距与最小的负边距（即绝对值最大的负边距）的和。
       * 如果所有参与折叠的外边距都为负，折叠后的外边距的值为最小的负边距的值。这一规则适用于相邻元素和嵌套元素。
       
+---------------------
+
+#### 3D transform
+
+* 总结无能_(:з」∠)_ 看[连接](http://www.zhangxinxu.com/wordpress/2012/09/css3-3d-transform-perspective-animate-transition/)

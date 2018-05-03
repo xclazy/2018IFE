@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>No.4 - 3D 空间的卡片翻转动效</title>
+  <style>
+    .box {
+      position: relative;
+      width: 250px;
+      height: 350px;
+      margin: 40px auto;
+      perspective: 1000px; /* 定义 3D 元素距视图的距离 */
+    }
+    .box-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 250px;
+      height: 350px;
+      backface-visibility: hidden; /* 背对屏幕的时候不可见 */
+      transform-style: preserve-3d; /* 设为3D变换 */
+      transition: transform .8s ease-in-out;
+    }
+    .box-img:last-child {
+        transform: rotateY(-180deg);
+    }
+    .box:hover .box-img:first-child {
+        transform: rotateY(180deg);
+    }
+    .box-img:first-child,
+    .box:hover .box-img:last-child {
+        transform: rotateY(0deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <img src="./img/1.jpg" alt="正面" class="box-img">
+    <img src="./img/2.jpg" alt="反面" class="box-img">
+  </div>
+</body>
+</html>
