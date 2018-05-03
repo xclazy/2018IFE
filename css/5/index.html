@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>No.5 - 纯 CSS 制作绕中轴旋转的立方体</title>
+  <style>
+  @keyframes boxRotate {
+    from {
+      -webkit-transform: rotateY(0); /* Safari 和 Chrome */
+         -moz-transform: rotateY(0); 	/* Firefox */
+          -ms-transform: rotateY(0); 	/* IE 9 */
+           -o-transform: rotateY(0); 	/* Opera */
+              transform: rotateY(0);
+    }
+    to {
+      -webkit-transform: rotateY(-360deg); /* Safari 和 Chrome */
+         -moz-transform: rotateY(-360deg); 	/* Firefox */
+          -ms-transform: rotateY(-360deg); 	/* IE 9 */
+           -o-transform: rotateY(-360deg); 	/* Opera */
+              transform: rotateY(-360deg);
+    }
+  }
+  @-moz-keyframes boxRotate {
+    from {
+      -webkit-transform: rotateY(0); /* Safari 和 Chrome */
+         -moz-transform: rotateY(0); 	/* Firefox */
+          -ms-transform: rotateY(0); 	/* IE 9 */
+           -o-transform: rotateY(0); 	/* Opera */
+              transform: rotateY(0);
+    }
+    to {
+      -webkit-transform: rotateY(-360deg); /* Safari 和 Chrome */
+         -moz-transform: rotateY(-360deg); 	/* Firefox */
+          -ms-transform: rotateY(-360deg); 	/* IE 9 */
+           -o-transform: rotateY(-360deg); 	/* Opera */
+              transform: rotateY(-360deg);
+    }
+  }
+  @-webkit-keyframes boxRotate {
+    from {
+      -webkit-transform: rotateY(0); /* Safari 和 Chrome */
+         -moz-transform: rotateY(0); 	/* Firefox */
+          -ms-transform: rotateY(0); 	/* IE 9 */
+           -o-transform: rotateY(0); 	/* Opera */
+              transform: rotateY(0);
+    }
+    to {
+      -webkit-transform: rotateY(-360deg); /* Safari 和 Chrome */
+         -moz-transform: rotateY(-360deg); 	/* Firefox */
+          -ms-transform: rotateY(-360deg); 	/* IE 9 */
+           -o-transform: rotateY(-360deg); 	/* Opera */
+              transform: rotateY(-360deg);
+    }
+  }
+  @-o-keyframes boxRotate {
+    from {
+      -webkit-transform: rotateY(0); /* Safari 和 Chrome */
+         -moz-transform: rotateY(0); 	/* Firefox */
+          -ms-transform: rotateY(0); 	/* IE 9 */
+           -o-transform: rotateY(0); 	/* Opera */
+              transform: rotateY(0);
+    }
+    to {
+      -webkit-transform: rotateY(-360deg); /* Safari 和 Chrome */
+         -moz-transform: rotateY(-360deg); 	/* Firefox */
+          -ms-transform: rotateY(-360deg); 	/* IE 9 */
+           -o-transform: rotateY(-360deg); 	/* Opera */
+              transform: rotateY(-360deg);
+    }
+  }
+  /* 视角需要在容器上层 */
+  .main {
+    -webkit-perspective: 400px; /* 定义 3D 元素距视图的距离 */
+            perspective: 400px;
+  }
+  .box {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin: 100px auto;
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+  }
+  .box:hover {
+    animation: boxRotate 5s linear infinite;
+    -moz-animation: boxRotate 5s linear infinite;	/* Firefox */
+    -webkit-animation: boxRotate 5s linear infinite;	/* Safari 和 Chrome */
+    -o-animation: boxRotate 5s linear infinite;
+  }
+  .box-wall {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -100px;
+    width: 200px;
+    height: 200px;
+    border: 2px solid #ff8bac;
+  }
+  .box-wall:nth-child(1) {
+    -webkit-transform: translateZ(100px); /* Safari 和 Chrome */
+       -moz-transform: translateZ(100px); /* Firefox */
+        -ms-transform: translateZ(100px); /* IE 9 */
+         -o-transform: translateZ(100px); /* Opera */
+            transform: translateZ(100px);
+  }
+  .box-wall:nth-child(2) {
+    -webkit-transform: rotateX(90deg) translateZ(100px); /* Safari 和 Chrome */
+       -moz-transform: rotateX(90deg) translateZ(100px); /* Firefox */
+        -ms-transform: rotateX(90deg) translateZ(100px); /* IE 9 */
+         -o-transform: rotateX(90deg) translateZ(100px); /* Opera */
+            transform: rotateX(90deg) translateZ(100px);
+  }
+  .box-wall:nth-child(3) {
+    -webkit-transform: rotateX(-90deg) translateZ(100px); /* Safari 和 Chrome */
+       -moz-transform: rotateX(-90deg) translateZ(100px); /* Firefox */
+        -ms-transform: rotateX(-90deg) translateZ(100px); /* IE 9 */
+         -o-transform: rotateX(-90deg) translateZ(100px); /* Opera */
+            transform: rotateX(-90deg) translateZ(100px);
+  }
+  .box-wall:nth-child(4) {
+    -webkit-transform: rotateX(180deg) translateZ(100px); /* Safari 和 Chrome */
+       -moz-transform: rotateX(180deg) translateZ(100px); /* Firefox */
+        -ms-transform: rotateX(180deg) translateZ(100px); /* IE 9 */
+         -o-transform: rotateX(180deg) translateZ(100px); /* Opera */
+            transform: rotateX(180deg) translateZ(100px);
+  }
+  .box-wall:nth-child(5) {
+    -webkit-transform: rotateY(90deg) translateZ(100px); /* Safari 和 Chrome */
+       -moz-transform: rotateY(90deg) translateZ(100px); /* Firefox */
+        -ms-transform: rotateY(90deg) translateZ(100px); /* IE 9 */
+         -o-transform: rotateY(90deg) translateZ(100px); /* Opera */
+            transform: rotateY(90deg) translateZ(100px);
+  }
+  .box-wall:nth-child(6) {
+    -webkit-transform: rotateY(-90deg) translateZ(100px); /* Safari 和 Chrome */
+       -moz-transform: rotateY(-90deg) translateZ(100px); /* Firefox */
+        -ms-transform: rotateY(-90deg) translateZ(100px); /* IE 9 */
+         -o-transform: rotateY(-90deg) translateZ(100px); /* Opera */
+            transform: rotateY(-90deg) translateZ(100px);
+  }
+  </style>
+</head>
+<body>
+  <div class="main">
+      <div class="box">
+        <div class="box-wall"></div>
+        <div class="box-wall"></div>
+        <div class="box-wall"></div>
+        <div class="box-wall"></div>
+        <div class="box-wall"></div>
+        <div class="box-wall"></div>
+      </div>
+  </div>
+</body>
+</html>
