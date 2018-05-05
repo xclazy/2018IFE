@@ -6,12 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>No.8 - 把 AE 动画转换成 Web 原生动画</title>
     <style>
+        html, body {
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+        }
         .box {
             position: relative;
+            max-height: 100%;
             background-color: #102131;
         }
         #test-a {
             width: 76%;
+            max-height: 100%;
         }
         /* 右下角容器 */
         .box-small {
