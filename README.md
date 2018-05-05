@@ -55,6 +55,10 @@
 
     <a href="http://ife.baidu.com/course/detail/id/34" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/css/7/" target="_blank">作业</a>
     
+* #### No.8 - 把 AE 动画转换成 Web 原生动画
+
+    <a href="http://ife.baidu.com/course/detail/id/35" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/css/8/" target="_blank">作业</a>
+    
 --------------------------
 
 ### MVVM学院
