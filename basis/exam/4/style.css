@@ -416,6 +416,7 @@ input[type="submit"] {
   background-color: rgba(0, 0, 0, .65); 
   box-sizing: border-box;
   opacity: 0;
+  transition: opacity .2s ease-out;
 }
 .box-six .item-main:hover {
   opacity: 1;
