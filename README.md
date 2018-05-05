@@ -50,6 +50,10 @@
 * #### No.6 - 利用 CSS animation 制作一个炫酷的 Slider
 
     <a href="http://ife.baidu.com/course/detail/id/33" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/css/6/index.html" target="_blank">作业</a>
+
+* #### No.7 - 使用 animate.css 实现一个优雅的登录框
+
+    <a href="http://ife.baidu.com/course/detail/id/34" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/css/7/" target="_blank">作业</a>
     
 --------------------------
 
