@@ -1,0 +1,150 @@
+/* 引入字体 */
+@font-face {
+  font-family: 'ProximaNova';
+  src: url('./font/ProximaNova-Regular.otf');
+}
+/* reset */
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font: 14px/1.5 ProximaNova, Arial, sans-serif;
+}
+h1,
+h2,
+h3,
+p,
+ul{
+  margin: 0;
+}
+ul {
+  padding: 0;
+}
+li {
+  list-style: none;
+}
+em {
+  font-style: normal;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+/* 布局 */
+.wrap {
+  position: relative;
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+.side {
+  display: flex;
+  width: 350px;
+}
+.app,
+.content,
+.message {
+  flex: 1;
+}
+.menu,
+.chats,
+.message {
+  overflow: auto;
+}
+.menu {
+  width: 250px;
+}
+.content {
+  position: relative;
+  display: flex;
+  height: 100%;
+  padding-top: 80px;
+  box-sizing: border-box;
+}
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 80px;
+}
+.chats {
+  width: 400px;
+}
+/* icon */
+.icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url(./img/icon.png);
+  cursor: pointer;
+}
+.icon--menu {
+  background-position: 0 center;
+}
+.icon--setting {
+  background-position: -36px center;
+}
+/* 第一列 */
+.app {
+  position: relative;
+  padding: 20px;
+  background-color: #1d2531;
+}
+.app-btn {
+  display: block;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 20px;
+  background-image: url(./img/icon--app.png); 
+}
+.app-btn:nth-child(2) {
+  background-position: 0 -80px;
+}
+.app-btn:nth-child(3) {
+  background-position: 0 bottom;
+}
+.app-btn--add {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border: 3px solid #2d3848;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+.app-btn--add:before,
+.app-btn--add:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 4px;
+  background-color: #2d3848;
+}
+.app-btn--add:after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+.app-ft {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 20px 0;
+}
+.app-ft .icon {
+  margin: 0 8px;
+}
+/* 第二列 */
+.menu {
+  color: #fff;
+  background-color: #222c3c;
+}
+.menu-title {
+  font-size: 12px;
+  color: #5b6779;
+  text-transform: uppercase;
+}
