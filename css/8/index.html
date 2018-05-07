@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>No.8 - 把 AE 动画转换成 Web 原生动画</title>
+    <style>
+        html, body {
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        .box {
+            position: relative;
+            max-height: 100%;
+            background-color: #102131;
+        }
+        #test-a {
+            width: 76%;
+            max-height: 100%;
+        }
+        /* 右下角容器 */
+        .box-small {
+            position: absolute;
+            right: 2%;
+            bottom: 4%;
+            width: 100px;
+            height: 100px;
+            padding: 2%;
+            background-color: #fff;
+            box-shadow: 2px 2px 2px #000;
+        }
+        #test-b {
+            width: 100%;
+            height: 100%;
+            background-color: #DBE4FD;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div id="test-a"></div>
+        <div class="box-small">
+            <div id="test-b"></div>
+        </div>
+    </div>
+    <script src="./lottie.min.js"></script>
+    <script>
+        lottie.loadAnimation({
+            container: document.querySelector('#test-a'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: './1.json',
+        })
+        // 右下角动画
+        var anim = lottie.loadAnimation({
+            container: document.querySelector('#test-b'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: false,
+            path: './2.json',
+        })
+        // 进入盒子时开始播放动画
+        document.querySelector('.box-small').addEventListener('mouseenter', function() {
+            anim.play();
+        })
+        // 离开时返回第一帧并停止
+        document.querySelector('.box-small').addEventListener('mouseleave', function() {
+            anim.goToAndStop(0, true);
+        })
+    </script>
+</body>
+</html>

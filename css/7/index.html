@@ -84,11 +84,28 @@
                 pointer-events: none;
                 color: #999;
             }
+            .form__label:after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background-color: #2196f3;
+                transition: width .2s ease-out;
+            }
             .form__label__content {
                 position: absolute;
+                transform-origin: left top;
+                transition: all 0.2s ease-in;
             }
-            .form__input:focus ~ .form__label .form__label-content,
-            .form--filled .form__label-content {
+            .form__input:focus ~ .form__label:after {
+                width: 100%;
+                transition: none;
+            }
+            .form__input:focus ~ .form__label .form__label__content,
+            .form--filled  ~ .form__label .form__label__content {
+                transform: translateY(-20%) scale(.8);
             }
             .btn {
                 width: 100%;
@@ -129,6 +146,7 @@
                         <span class="form__label__content">Password</span>
                         </label>
                     </div>
+                    <!-- animated -->
                     <div class="form__wrapper__submit pulse infinite" data-wow-delay="0.7s">
                         <div class="form__input__submit">
                             <button type="submit" name="submit" class="btn">Submit</button>
@@ -139,5 +157,13 @@
         </section>
     </body>
     <script src="https://ss1.bdstatic.com/5eN1bjq8AAUYm2zgoY3K/r/www/cache/static/protocol/https/jquery/jquery-1.10.2.min_65682a2.js"></script>
-    
+    <script>
+        $('.form__input').on('blur', function() {
+            var _this = $(this);
+            // 判断是否填写并添加样式名
+            if ($.trim(_this.val())) _this.addClass('form--filled');
+            // 当不存在未填写的input，submit添加动画
+            if (!$('.form__input').not('.form--filled').length) $('.form__wrapper__submit').addClass('animated');
+        })
+    </script>
 </html>
