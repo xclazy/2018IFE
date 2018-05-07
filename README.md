@@ -6,7 +6,7 @@
 
 * #### 练习一：简历
 
-    课程 day2 ~ day4 <a href="https://xclazy.github.io/2018IFE/basis/exam/1/index.html" target="_blank">作业</a>
+    课程 day2 ~ day4, day16 <a href="https://xclazy.github.io/2018IFE/basis/1/index.html" target="_blank">作业</a>
 
 
 * #### 练习二：三种简历

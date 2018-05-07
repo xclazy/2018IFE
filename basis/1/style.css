@@ -1,8 +1,10 @@
 
-html, body {
-  min-height: 100%;
+/* reset */
+html {
+  height: 100%;
 }
 body {
+  min-height: 100%;
   padding: 10px;
   margin: 0;
   font-family: 'Arial', '微软雅黑';
@@ -41,15 +43,17 @@ a {
 a:hover {
   text-decoration: underline;
 }
+/* 布局 */
 .wrap {
   position: relative;
   max-width: 640px;
   min-width: 420px;
-  min-height: 100%;
+  /* min-height: 100%; */
   margin: 0 auto;
   padding: 0 40px 100px;
   background-color: #ff8bac;
   border: 1px solid rgba(255, 255, 255, .85);
+  box-sizing: border-box;
 }
 .header {
   position: relative;
@@ -67,6 +71,10 @@ a:hover {
   display: inline-block;
   margin: 0 5px;
 }
+.hide {
+  display: none;
+}
+/* 名片 */
 .card {
   padding: 20px;
   color: #333;
@@ -101,6 +109,18 @@ a:hover {
   border-top: 1px solid rgba(255, 139, 172, .25);
   word-break: break-all;
 }
+/* 引导提示 */
+.tips {
+  text-align: center;
+  padding-top: 30px;
+}
+.tips-text {
+  display: inline-block;
+  font-size: 14px;
+  border-bottom: 1px dotted rgba(255, 255, 255, .5);
+  cursor: pointer;
+}
+/* 信息 */
 .box {
   margin-top: 20px;
 }

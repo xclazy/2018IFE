@@ -17,19 +17,22 @@
           <a href="#experience" class="nav-item">项目经验</a>
         </nav> -->
     </header>
-    <article class="content">
-      <section class="card">
-        <h2 style="display: none">个人信息</h2>
-        <div class="card-hd">
-          <div alt="某番茄头像" class="card-avatar"></div>
-          <address class="card-info">
-            <p>姓名 : 某番茄</p>
-            <p>电话 : 18888888888</p>
-            <p>地址 : <a href="https://github.com/xclazy/2018IFE/" target="_blank">github.com/xclazy/2018IFE</a></p>
-          </address>
-        </div>
-        <p class="card-ft">入行两年的小渣渣，偏移动端开发；熟练使用webpack+vue全家桶。</p>
-      </section>
+    <section class="card">
+      <h2 style="display: none">个人信息</h2>
+      <div class="card-hd">
+        <div alt="某番茄头像" class="card-avatar"></div>
+        <address class="card-info">
+          <p>姓名 : 某番茄</p>
+          <p>电话 : 18888888888</p>
+          <p>地址 : <a href="https://github.com/xclazy/2018IFE/" target="_blank">github.com/xclazy/2018IFE</a></p>
+        </address>
+      </div>
+      <p class="card-ft">入行两年的小渣渣，偏移动端开发；熟练使用webpack+vue全家桶。</p>
+    </section>
+    <div class="tips">
+      <p class="tips-text">o(*￣▽￣*)o想了解更多么? 戳这戳这 >></p>
+    </div>
+    <article class="info hide">
       <section class="box">
         <h2 class="box-title">教育经历</h2>
         <section class="box-main">
@@ -112,5 +115,13 @@
       <p>Copyright © 2018 某番茄</p>
     </footer>
   </main>
+  <script>
+    // 点击了解更多时显示信息
+    document.querySelector('.tips-text').addEventListener('click', function() {
+      // console.log(222);
+      document.querySelector('.tips').classList.add('hide');
+      document.querySelector('.info').classList.remove('hide');
+    })
+  </script>
 </body>
 </html>
