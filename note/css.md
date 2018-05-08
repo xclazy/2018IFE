@@ -73,7 +73,7 @@
     ```css
     div {
       flex-direction: row;
-      flex-wrap;
+      flex-wrap: wrap;
     }
     /* 等同 */
     div {
