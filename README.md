@@ -21,6 +21,10 @@
 
     <a href="http://ife.baidu.com/course/detail/id/43" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/basis/4/index.html" target="_blank">作业</a>
     
+* #### 练习五：复杂页面实现
+
+    <a href="http://ife.baidu.com/course/detail/id/44" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/basis/5/index.html" target="_blank">作业</a>
+    
 ------------------------
 
 ### 设计师学院
