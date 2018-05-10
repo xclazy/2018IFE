@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>IFE ECMAScript</title>
+    <style>
+      .box {
+        border: 1px solid #d9d9d9;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+    </style>
+</head>
+<body>
+  <!-- 编码一 -->
+  <div class="box">
+    <input id="first-number" type="number" value=0 placeholder="第一个数字">
+    <input id="second-number" type="number" value=0 placeholder="第二个数字">
+    <button id="add-btn">加</button>
+    <button id="minus-btn">减</button>
+    <button id="times-btn">乘</button>
+    <button id="divide-btn">除</button>
+    <p id="result">运算结果: </p>
+    <script>
+      var input1 = document.querySelector('#first-number');
+      var input2 = document.querySelector('#second-number');
+      var resultBox = document.querySelector("#result");
+      
+      // 验证数字
+      var checkNumber = function() {
+        var string = input1.value;
+        var string2 = input2.value;
+        // 判断是否都为数字并做相应处理及返回结果
+        var isNum = (Number(string) || string === '0') && (Number(string2) || string2 === '0');
+        if (!isNum) {
+          var error = '错误信息：请输入正确数字';
+          console.log(error);
+          resultBox.innerHTML = error; 
+        }
+        return isNum;
+      };
+
+      document.querySelector('#add-btn').addEventListener('click', function() {
+        if (!checkNumber()) return false;
+        resultBox.innerHTML = '运算结果：' + (Number(input1.value) + Number(input2.value));
+      })
+      document.querySelector('#minus-btn').addEventListener('click', function() {
+        if (!checkNumber()) return false;
+        resultBox.innerHTML = '运算结果：' + (Number(input1.value) - Number(input2.value));
+      })
+      document.querySelector('#times-btn').addEventListener('click', function() {
+        if (!checkNumber()) return false;
+        resultBox.innerHTML = '运算结果：' + (Number(input1.value) * Number(input2.value));
+      })
+      document.querySelector('#divide-btn').addEventListener('click', function() {
+        // 除法除数不可为0
+        if (!input2.value || input2.value === '0') {
+          var error = '错误信息：除数不可为0';
+          console.log(error);
+          return resultBox.innerHTML = error;
+        }
+        if (!checkNumber()) return false;
+        resultBox.innerHTML = '运算结果：' + (Number(input1.value) / Number(input2.value));
+      })
+    </script>
+  </div>
+  <!-- 编码二 -->
+  <div class="box">
+    <input id="dec-number" type="number" placeholder="输入一个十进制非负整数">
+    <input id="bin-bit" type="number" placeholder="输入转化后二进制数字位数">
+    <button id="trans-btn">转化为二进制</button>
+    <p id="result2">运算结果</p>
+    <script>  
+      var input = document.querySelector('#dec-number');
+      var input2 = document.querySelector('#bin-bit');
+      var transBtn = document.querySelector('#trans-btn');
+      var resultBox = document.querySelector("#result2");
+
+      function dec2bin(decNumber) {
+          // 在这里实现你的转化方法，注意需要判断输入必须为一个非负整数
+          if (decNumber < 0) return resultBox.innerHTML = '请输入非负整数';
+          return decNumber.toString(2);
+      }
+      // 实现党点击转化按钮时，将输入的十进制数字转化为二进制，并显示在result的p标签内
+      transBtn.addEventListener('click', function() {
+        var val = input.value;
+        var binBit = input2.value;
+        // 验证需转化的数字
+        if (!Number(val) && val !== '0') return resultBox.innerHTML = '请输入非负整数';
+        var result = dec2bin(Number(val))
+        // 验证输入的位数并做判断处理
+        if (!Number(binBit) && binBit !== '0') {
+          console.log('请输入正确的位数');
+        } else {
+          // 相差位数
+          var diff = Number(binBit) - result.length
+          // 位数不足补0
+          if (diff > 0) result = new Array(diff + 1).join(0) + result;
+          // 位数超报错
+          if (diff < 0) console.log('转化后的位数过长')
+        }
+        // 返回结果
+        resultBox.innerHTML = '运算结果：' + result;
+      });
+      </script>
+  </div>
+  <!-- 编码三 -->
+  <div class="box">
+    <button id="loop-btn">3的小游戏</button>
+    <script>
+      document.querySelector('#loop-btn').addEventListener('click', function() {
+        for (var i = 1; i <= 100; i ++) {
+          /3/.test(i) || i % 3 === 0 ? console.log('PA') : console.log(i);
+        }
+      });
+    </script>
+  </div>
+  <!-- 编码四 -->
+  <div class="box">
+    <button id="table-btn">九九乘法表</button>
+    <script>
+      document.querySelector('#table-btn').addEventListener('click', function() {
+        // ...
+      });
+    </script>
+  </div>
+  <!-- 编码四 -->
+  <div class="box">
+    <button id="link-btn">前去简历</button>
+    <script>
+      document.querySelector('#link-btn').addEventListener('click', function() {
+        window.open('https://xclazy.github.io/2018IFE/basis/1/index.html');
+      });
+    </script>
+  </div>
+</body>
+</html>

@@ -87,3 +87,55 @@
     var iNum2 = -iNum1 -1;
     alert(iNum2);	//输出 -26
     ```
+
+---------------------------
+
+#### javaScript标签
+
+  * 在语句之前加上冒号`：`标记JavaScript语句，如switch
+
+    ```js
+    label:
+      ... // 语句
+    ```
+
+  * `break` 和 `continue`
+    
+    跳出代码块的语句
+
+    ```js
+    break labelname;
+    continue labelname;
+    ```
+    * `continue` 语句（带有或不带标签引用）只能用在循环中。
+    * `break` 语句（不带标签引用），只能用在循环或 `switch` 中。
+    * 通过标签引用，`break` 语句可用于跳出任何 JavaScript 代码块：
+
+    ```js
+    cars=["BMW","Volvo","Saab","Ford"];
+    list:
+    {
+      document.write(cars[0] + "<br>");
+      document.write(cars[1] + "<br>");
+      document.write(cars[2] + "<br>");
+      break list;
+      document.write(cars[3] + "<br>");
+      document.write(cars[4] + "<br>");
+      document.write(cars[5] + "<br>");
+    }
+    // 输出 BMW Volvo Saab
+    ```
+
+----------------------------
+
+#### API
+
+ * window.propmt() 系统对话框，返回输入值
+
+  ```js
+  var name = prompt('What is your name?');
+  alert('Hello ' + name + ', nice to see you!')
+  ``` 
+ * Array.join()
+
+   若无传入参数，默认逗号拼接数组
