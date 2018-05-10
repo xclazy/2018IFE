@@ -44,7 +44,7 @@ input {
   position: relative;
   display: flex;
   height: 100%;
-  min-height: 780px;
+  /* min-height: 400px; */
   min-width: 1300px;
   overflow: hidden;
 }
@@ -82,12 +82,6 @@ input {
 .menu,
 .chats {
   flex-shrink: 0;
-}
-.menu {
-  overflow-y: auto;
-}
-.menu::-webkit-scrollbar {
-  width: 0;
 }
 /* icon */
 .icon {
@@ -161,8 +155,15 @@ input {
 /* 第一列 */
 .app {
   position: relative;
-  padding: 20px;
   background-color: #1d2531;
+}
+.app-btns {
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
 }
 .app-btn {
   display: block;
@@ -184,6 +185,7 @@ input {
   border: 3px solid #2d3848;
   border-radius: 50%;
   box-sizing: border-box;
+  cursor: pointer;
 }
 .app-btn--add:before,
 .app-btn--add:after {
@@ -200,12 +202,12 @@ input {
   transform: translate(-50%, -50%) rotate(90deg);
 }
 .app-ft {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   display: flex;
   justify-content: center;
-  width: 100%;
+  width: 100px;
   padding: 20px 0;
 }
 .app-ft .icon {
@@ -214,11 +216,18 @@ input {
 /* 第二列 */
 .menu {
   position: relative;
-  padding: 8px 30px 0;
   line-height: 20px;
   color: #fff;
   background-color: #222c3c;
+}
+.menu-trees {
+  height: 100%;
+  padding: 8px 30px 0;
+  overflow-y: auto;
   box-sizing: border-box;
+}
+.menu-trees::-webkit-scrollbar {
+  width: 0;
 }
 .menu-tree {
   margin-bottom: 12px;
@@ -289,8 +298,9 @@ input {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 100%;
+  width: 250px;
   padding: 23px 30px;
+  background-color: #222c3c;
   text-transform: capitalize;
   box-sizing: border-box;
 }
@@ -321,7 +331,7 @@ input {
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   padding: 0 30px;
   font-size: 24px;
   border-bottom: 1px solid #e6e9ec;
@@ -329,7 +339,9 @@ input {
   box-sizing: border-box;
 }
 .user {
-  position: relative;
+  position: fixed;
+  right: 30px;
+  top: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -338,6 +350,7 @@ input {
   padding-left: 66px;
   font-size: 14px;
   color: #b5b5b5;
+  background-color: #fff;
   box-sizing: border-box;
 }
 .user-name {
