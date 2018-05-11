@@ -22,6 +22,9 @@
         /* word-wrap: none; */
         white-space: nowrap;
       }
+      p {
+        word-break: break-all;
+      }
     </style>
 </head>
 <body>
@@ -33,7 +36,7 @@
     <button id="minus-btn">减</button>
     <button id="times-btn">乘</button>
     <button id="divide-btn">除</button>
-    <p id="result">运算结果 </p>
+    <p id="result">运算结果</p>
     <script>
       var inputFirst = document.querySelector('#first-number');
       var inputSecond = document.querySelector('#second-number');
@@ -136,13 +139,16 @@
   <!-- 编码三 -->
   <div class="box">
     <button id="loop-btn">3的小游戏</button>
-    <p>结果请看console</p>
+    <p id="result3"></p>
     <script>
+      var resultBox3 = document.querySelector('#result3');
       document.querySelector('#loop-btn').addEventListener('click', function() {
+        var html = [];
         for (var i = 1; i <= 100; i ++) {
           // 当数字为3的倍数或者含有3的时候，输出'PA'
-          /3/.test(i) || i % 3 === 0 ? console.log('PA') : console.log(i);
+          html.push(/3/.test(i) || i % 3 === 0 ? 'PA' : i);
         }
+        resultBox3.innerHTML = html.join(',');
       });
     </script>
   </div>
