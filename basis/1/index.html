@@ -11,6 +11,7 @@
   <main class="wrap">
     <header class="header">
         <h1>某番茄的简历</h1>
+        <span class="header_ft"></span>
         <!-- <nav class="nav">
           <a href="#info" class="nav-item">个人介绍</a>
           <a href="#educate"class="nav-item">教育经历</a>
@@ -116,6 +117,12 @@
     </footer>
   </main>
   <script>
+    // 根据进入时间问候
+    var date = new Date();
+    var hour = date.getHours();
+    var sdate = date.toDateString();
+    var greet = hour > 18 || hour < 6 ? '晚上好' : hour < 12 ? '早上好' : '下午好';
+    document.querySelector('.header_ft').innerHTML = greet + '，' + sdate; 
     // 点击了解更多时显示信息
     document.querySelector('.tips-text').addEventListener('click', function() {
       // console.log(222);

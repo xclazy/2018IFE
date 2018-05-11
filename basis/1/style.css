@@ -59,6 +59,12 @@ a:hover {
   position: relative;
   padding: 40px 0;
 }
+.header_ft {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
 .nav {
   position: absolute;
   right: 0;

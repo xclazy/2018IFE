@@ -2,12 +2,25 @@
 <html>
 <head>
     <meta charset="UTF-8">    
-    <title>IFE ECMAScript</title>
+    <title>17_18</title>
     <style>
       .box {
         border: 1px solid #d9d9d9;
         padding: 10px;
         margin-bottom: 10px;
+      }
+      table {
+        margin-top: 10px;
+        border-left: 1px solid #d9d9d9;
+        border-bottom: 1px solid #d9d9d9;
+      }
+      td {
+        padding: 2px 5px;
+        border-right: 1px solid #d9d9d9;
+        border-top: 1px solid #d9d9d9;
+        font-size: 14px;
+        /* word-wrap: none; */
+        white-space: nowrap;
       }
     </style>
 </head>
@@ -22,45 +35,61 @@
     <button id="divide-btn">除</button>
     <p id="result">运算结果: </p>
     <script>
-      var input1 = document.querySelector('#first-number');
-      var input2 = document.querySelector('#second-number');
-      var resultBox = document.querySelector("#result");
+      var inputFirst = document.querySelector('#first-number');
+      var inputSecond = document.querySelector('#second-number');
+      var resultBox1 = document.querySelector("#result");
       
-      // 验证数字
-      var checkNumber = function() {
-        var string = input1.value;
-        var string2 = input2.value;
-        // 判断是否都为数字并做相应处理及返回结果
-        var isNum = (Number(string) || string === '0') && (Number(string2) || string2 === '0');
-        if (!isNum) {
-          var error = '错误信息：请输入正确数字';
-          console.log(error);
-          resultBox.innerHTML = error; 
-        }
-        return isNum;
-      };
+      // 输出结果/报错，error是否报错，默认false
+      var showResult = function(text, error) {
+        if (error) console.log(text);
+        var html = error ? '错误信息：' : '运算结果：';
+        resultBox1.innerHTML = html + text;
+      }
+      // 计算结果
+      var countResult = function (type) {
+        var sFirst = inputFirst.value;
+        var sSecond = inputSecond.value;
 
+        // 判断是否都为数字并做相应处理
+        var isNum = (Number(sFirst) || sFirst === '0') && (Number(sSecond) || sSecond === '0');
+        if (!isNum) return showResult('请输入正确数字', true);
+
+        // 计算并输出结果
+        var nFirst = Number(sFirst);
+        var nSecond = Number(sSecond);
+        var nResult = 0;
+        
+        switch(type) {
+          case '+':
+            nResult = nFirst + nSecond;
+            break;
+          case '-':
+            nResult = nFirst - nSecond;
+            break;
+          case '*':
+            nResult = nFirst * nSecond;
+            break;
+          case '/':
+            // 除法被除数不可为0
+            if (nSecond === 0) return showResult('除数不可为0', true);
+            nResult = nFirst / nSecond;
+            break;
+          default:
+        }
+        showResult(nResult);
+      }
+      // 监听按钮时间
       document.querySelector('#add-btn').addEventListener('click', function() {
-        if (!checkNumber()) return false;
-        resultBox.innerHTML = '运算结果：' + (Number(input1.value) + Number(input2.value));
+        countResult('+')
       })
       document.querySelector('#minus-btn').addEventListener('click', function() {
-        if (!checkNumber()) return false;
-        resultBox.innerHTML = '运算结果：' + (Number(input1.value) - Number(input2.value));
+        countResult('-')
       })
       document.querySelector('#times-btn').addEventListener('click', function() {
-        if (!checkNumber()) return false;
-        resultBox.innerHTML = '运算结果：' + (Number(input1.value) * Number(input2.value));
+        countResult('*')
       })
       document.querySelector('#divide-btn').addEventListener('click', function() {
-        // 除法除数不可为0
-        if (!input2.value || input2.value === '0') {
-          var error = '错误信息：除数不可为0';
-          console.log(error);
-          return resultBox.innerHTML = error;
-        }
-        if (!checkNumber()) return false;
-        resultBox.innerHTML = '运算结果：' + (Number(input1.value) / Number(input2.value));
+        countResult('/')
       })
     </script>
   </div>
@@ -71,36 +100,36 @@
     <button id="trans-btn">转化为二进制</button>
     <p id="result2">运算结果</p>
     <script>  
-      var input = document.querySelector('#dec-number');
-      var input2 = document.querySelector('#bin-bit');
+      var inputDec = document.querySelector('#dec-number');
+      var inputBit = document.querySelector('#bin-bit');
       var transBtn = document.querySelector('#trans-btn');
-      var resultBox = document.querySelector("#result2");
+      var resultBox2 = document.querySelector("#result2");
 
-      function dec2bin(decNumber) {
-          // 在这里实现你的转化方法，注意需要判断输入必须为一个非负整数
-          if (decNumber < 0) return resultBox.innerHTML = '请输入非负整数';
-          return decNumber.toString(2);
+      function dec2bin(decNumber, next) {
+        // 在这里实现你的转化方法，注意需要判断输入必须为一个非负整数
+        if (!Number(decNumber) && decNumber !== '0') return resultBox2.innerHTML = '需转化数字请输入十进制非负整数';
+        // 转化并执行回调，偷懒直接用Number对象自带方法转化
+        return next(Number(decNumber).toString(2));
       }
-      // 实现党点击转化按钮时，将输入的十进制数字转化为二进制，并显示在result的p标签内
+      // 实现点击转化按钮时，将输入的十进制数字转化为二进制，并显示在result的p标签内
       transBtn.addEventListener('click', function() {
-        var val = input.value;
-        var binBit = input2.value;
-        // 验证需转化的数字
-        if (!Number(val) && val !== '0') return resultBox.innerHTML = '请输入非负整数';
-        var result = dec2bin(Number(val))
-        // 验证输入的位数并做判断处理
-        if (!Number(binBit) && binBit !== '0') {
-          console.log('请输入正确的位数');
-        } else {
-          // 相差位数
-          var diff = Number(binBit) - result.length
-          // 位数不足补0
-          if (diff > 0) result = new Array(diff + 1).join(0) + result;
-          // 位数超报错
-          if (diff < 0) console.log('转化后的位数过长')
-        }
-        // 返回结果
-        resultBox.innerHTML = '运算结果：' + result;
+        // 验证并转化的十进制数字，转换成功后执行回调
+        dec2bin(inputDec.value, function(result) {
+          // 验证输入的位数并做判断处理
+          var binBit = inputBit.value;
+          if (!Number(binBit) && binBit !== '0') {
+            console.log('请输入正确的位数');
+          } else {
+            // 相差位数，二进制字符串类型
+            var diff = Number(binBit) - result.length;
+            // 位数不足补0
+            if (diff > 0) result = new Array(diff + 1).join(0) + result;
+            // 位数超报错
+            if (diff < 0) console.log('转化后的位数过长');
+          }
+          // 返回结果
+          resultBox2.innerHTML = '运算结果：' + result;
+        });
       });
       </script>
   </div>
@@ -110,6 +139,7 @@
     <script>
       document.querySelector('#loop-btn').addEventListener('click', function() {
         for (var i = 1; i <= 100; i ++) {
+          // 当数字为3的倍数或者含有3的时候，输出'PA'
           /3/.test(i) || i % 3 === 0 ? console.log('PA') : console.log(i);
         }
       });
@@ -118,13 +148,23 @@
   <!-- 编码四 -->
   <div class="box">
     <button id="table-btn">九九乘法表</button>
+    <table id="result4" cellspacing=0></table>
     <script>
+      var tableBox = document.querySelector('#result4');
       document.querySelector('#table-btn').addEventListener('click', function() {
-        // ...
+        var html = '';
+        for (var i = 1; i <= 9; i += 1) {
+          html += '<tr>';
+          for (var j = 1; j <= i; j += 1) {
+            html += '<td>' + i + ' * ' + j + ' = ' + i * j + '</td>';
+          }
+          html += '</tr>'
+        }
+        tableBox.innerHTML = html;
       });
     </script>
   </div>
-  <!-- 编码四 -->
+  <!-- 编码五 -->
   <div class="box">
     <button id="link-btn">前去简历</button>
     <script>

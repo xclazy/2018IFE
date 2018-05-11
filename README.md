@@ -25,6 +25,10 @@
 
     <a href="http://ife.baidu.com/course/detail/id/44" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/basis/5/index.html" target="_blank">作业</a>
     
+* #### 练习六：“如果”可以“重来”
+
+    <a href="http://ife.baidu.com/course/detail/id/46" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/basis/6/index.html" target="_blank">作业</a>
+    
 ------------------------
 
 ### 设计师学院
