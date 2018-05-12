@@ -35,10 +35,12 @@
     },
     // 清空数据
     clear() {
-      this.data.set('info.name', null);
       this.data.set('origin.age', null);
-      this.data.set('info.age', null);
-      this.data.set('info.message', null);
+      this.data.merge('info', {
+        name: null,
+        age: null,
+        message: null,
+      });
     },
     // input取值为string，中间过度处理下
     setAges() {
