@@ -1,5 +1,4 @@
 const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -8,8 +7,8 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: '[name].[chunkhash].js',
-    chunkFilename: '[name].[chunkhash].js'
+    filename: '[name].[hash].js',
+    chunkFilename: '[name].[hash].js'
   },
   module: {
     rules: [
@@ -32,17 +31,22 @@ module.exports = {
         use: [
           'file-loader'
         ]
+      },
+      {
+        test: /\.san$/,
+        loader: 'san-loader'
       }
     ]
   },
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js']
+    extensions: [ '.tsx', '.ts', '.js'],
+    alias: {
+      san: process.env.NODE_ENV === 'production'
+        ? 'san/dist/san.js'
+        : 'san/dist/san.dev.js'
+    }
   },
   plugins: [
-    new CleanWebpackPlugin(['dist'], {
-      root: path.resolve(__dirname, '../'),
-      verbose: true
-    }),
     new HtmlWebpackPlugin({
       title: 'mvvm'
     }),

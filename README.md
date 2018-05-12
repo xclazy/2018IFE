@@ -29,6 +29,10 @@
 
     <a href="http://ife.baidu.com/course/detail/id/46" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/basis/6/index.html" target="_blank">作业</a>
     
+* #### 练习七：找到那个DOM
+
+    <a href="http://ife.baidu.com/course/detail/id/47" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/basis/7/index.html" target="_blank">作业</a>
+    
 ------------------------
 
 ### 设计师学院
