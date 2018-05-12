@@ -1,0 +1,49 @@
+<template>
+  <div class="box">
+    <input type="text" value="{=info.name=}" placeholder="姓名(string)">
+    <input type="number" value="{=origin.age=}" placeholder="年龄(number)" on-change="setAges">
+    <input type="text" value="{=info.message=}" placeholder="简介(string)">
+    <div>
+      <span>信息：</span><button on-click="clear">移除信息</button>
+    </div>
+    <p>姓名：{{info.name}}<br/>年龄：{{info.age}}<br/>简介：{{info.message}}</p>
+  </div>
+</template>
+
+<script>
+  import { DataTypes } from 'san';
+  export default {
+    initData () {
+      return {
+        info: {
+          name: null,
+          age: null,
+          message: null,
+        },
+        origin: { // 因input取值为string 中间过度处理下
+          age: null,
+        }
+      };
+    },
+    // 验证
+    dataTypes: {
+      info: DataTypes.shape({
+        name: DataTypes.string,
+        age: DataTypes.number,
+        message: DataTypes.string
+      }).isRequired
+    },
+    // 清空数据
+    clear() {
+      this.data.set('info.name', null);
+      this.data.set('origin.age', null);
+      this.data.set('info.age', null);
+      this.data.set('info.message', null);
+    },
+    // input取值为string，中间过度处理下
+    setAges() {
+      var age = this.data.get('origin.age');
+      this.data.set('info.age', parseInt(age));
+    }
+  }
+</script>
