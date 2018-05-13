@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>20_21</title>
+  <style>
+    .box {
+      border: 1px solid #d9d9d9;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    /* table {
+      margin-top: 10px;
+      border-left: 1px solid #d9d9d9;
+      border-bottom: 1px solid #d9d9d9;
+    }
+    td {
+      padding: 2px 5px;
+      border-right: 1px solid #d9d9d9;
+      border-top: 1px solid #d9d9d9;
+      font-size: 14px;
+      /* word-wrap: none; */
+      /* white-space: nowrap; */
+    /* } */
+    p {
+      word-break: break-all;
+    }
+    select {
+      display: none;
+    }
+    .palette {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    .palette li {
+        width: 40px;
+        height: 40px;
+        border: 1px solid #000;
+        cursor: pointer;
+    }
+    #img-box {
+      width: 480px;
+      height: 480px;
+      background-image: url(http://ife.baidu.com/2016/static/img/erik_ce204002.jpg);
+      background-size: 100% auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- 编程一 -->
+  <div class="box">
+    <input id="name" type="text" onkeydown="nameKeyUp()">    
+    <button id="submit-btn">Submit</button>
+    <script>
+      var inputName = document.getElementById('name');
+      document.getElementById('submit-btn').onclick = function() {
+        console.log(inputName.value);
+      };
+      function nameKeyUp() {
+        var keyCode = event.keyCode;
+        if (keyCode === 27) inputName.value = null;
+        if (keyCode === 13) console.log(inputName.value);
+      }
+    </script>
+  </div>
+  <!-- 编程二 -->
+  <div class="box">        
+    <label>
+      <input id="school" name="status" type="radio">
+      School
+    </label>
+    <label>
+      <input id="company" name="status" type="radio">
+      Company
+    </label>
+    <select id="school-select">        
+      <option>北京邮电大学</option>
+      <option>黑龙江大学</option>
+      <option>华中科技大学</option>
+    </select>
+    <select id="company-select">        
+      <option>百度</option>
+      <option>爱奇艺</option>        
+    </select>
+    <script>
+      var radio = document.querySelectorAll('input[type=radio]');
+      for (var i = 0; i < radio.length; i ++) {
+        radio[i].onclick = function() {
+          if (this.checked) {
+            document.querySelector('select[id=' + this.id + '-select]').style.display = 'block';
+            document.querySelector('select:not([id=' + this.id + '-select])').style.display = 'none';
+          }
+        }
+      } 
+    </script>
+  </div>
+  <!-- 编程三 -->
+  <div class="box">
+    <ul class="palette">
+      <li style="background-color:crimson"></li>
+      <li style="background-color:bisque"></li>
+      <li style="background-color:blueviolet"></li>
+      <li style="background-color:coral"></li>
+      <li style="background-color:chartreuse"></li>
+      <li style="background-color:darkolivegreen"></li>
+      <li style="background-color:cyan"></li>
+      <li style="background-color:#194738"></li>        
+    </ul>
+    <p class="color-picker"></p>
+    <script>
+      var list = document.querySelector(".palette");
+      var p = document.querySelector('.color-picker');
+      list.onclick = function(e) {
+        var target = e.target;
+        if (target.nodeName.toLowerCase() === 'li') {
+          var bgColor = target.style.backgroundColor;
+          p.innerHTML = bgColor;
+          p.style.color = bgColor;
+        }
+      }
+    </script>
+  </div>
+  <!-- 变成四 -->
+  <div class="box">
+    <div id="fade-obj" style="width:300px;height:300px;background:#000"></div>
+    <button id="fade-btn">淡出</button>
+    <script>
+      var fadeObj = document.getElementById('fade-obj');
+      var fadeBtn = document.getElementById('fade-btn');
+      var isFadeOut = true; // 控制淡入(false)还是淡出(true);
+      var num, step;
+      fadeBtn.onclick = function() {
+        var style = fadeObj.style;
+        // 根据淡出还是淡入判断初始值/增减值
+        step = isFadeOut ? -0.1 : 0.1;
+        num =  isFadeOut ? 1 : 0;
+        // 不可点击
+        fadeBtn.disabled = true;
+        // 定时器
+        var c = setInterval(function() {
+          style.opacity = num;
+          num = num + step;
+          // 判断结束定时器及相应操作
+          if (num < 0 || num > 1) {
+            fadeBtn.disabled = false;
+            fadeBtn.innerHTML = isFadeOut ? '淡入' : '淡出';
+            isFadeOut = !isFadeOut;
+            window.clearInterval(c);
+          }
+        }, 100)
+      }
+    </script>
+  </div>
+  <!-- 编程五 -->
+  <div class="box">
+    <div id="img-box"></div>
+    <button id="img-btn">动起来</button>
+    <script>
+      var imgBox = document.getElementById('img-box');
+      var positionY = 0; // 背景图y位置
+      var imgHeight = 8160; // 图片总高度
+      var d = null; // 存储定时器
+      document.getElementById('img-btn').onclick = function() {
+        // 清除旧的定时器
+        if (d) window.clearInterval(d);
+        d = setInterval(function() {
+          imgBox.style.backgroundPosition = '0 -' + positionY + 'px';
+          positionY += 480;
+          // 到了最后一张图还原到第一张的位置
+          if (positionY > imgHeight - 480) positionY = 0;
+        }, 100);
+      };
+    </script>
+  </div>
+</body>
+</html>
