@@ -92,6 +92,11 @@
 * #### 2.2 条件和循环
 
   <a href="http://ife.baidu.com/course/detail/id/5" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/mvvm/2/dist/#/2_2" target="_blank">作业</a>
+
+* #### 2.3 样式控制
+
+  <a href="http://ife.baidu.com/course/detail/id/8" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/mvvm/2/dist/#/2_3" target="_blank">作业</a>
+  
 --------------------------
 
 ### 笔记

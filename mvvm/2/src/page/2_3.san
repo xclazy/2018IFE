@@ -1,0 +1,19 @@
+<template>
+  <div id="block" style="background:{{bgcolor}};width:100px;height:100px;" on-click="changeBg"></div>
+</template>
+
+<script>
+  import { DataTypes } from 'san';
+  export default {
+    initData () {
+      return {
+        bgcolor: 'red',
+      };
+    },
+    // 修改背景色
+    changeBg: function() {
+      var color = this.data.get('bgcolor');
+      this.data.set('bgcolor', color === 'blue' ? 'red' : 'blue');
+    }
+  }
+</script>
