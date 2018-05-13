@@ -87,8 +87,11 @@
 
 * #### 2.1 数据操作
 
-  <a href="http://ife.baidu.com/course/detail/id/4" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/mvvm/2/dist/#/2" target="_blank">作业</a>
-  
+  <a href="http://ife.baidu.com/course/detail/id/4" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/mvvm/2/dist/#/2_1" target="_blank">作业</a>
+
+* #### 2.2 条件和循环
+
+  <a href="http://ife.baidu.com/course/detail/id/5" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/mvvm/2/dist/#/2_2" target="_blank">作业</a>
 --------------------------
 
 ### 笔记
