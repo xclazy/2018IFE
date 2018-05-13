@@ -1,0 +1,79 @@
+<template>
+  <div class="box">
+    <button on-click="addPerson">添加</button>
+    <table>
+      <tr>
+        <th>姓名</th>
+        <th>审核状态</th>
+        <th>操作</th>
+      </tr>
+      <tr s-for="person, i in list">
+        <td>{{person.name}}</td>
+        <!-- 根据状态显示相应文案/按钮 -->
+        <td s-if="person.status === 1">合格</td>
+        <td s-elif="person.status === 2">不合格</td>
+        <td s-else>待审核</td>
+        <td>
+          <button on-click="checkPerson(i)" s-if="!person.status">审核</button>
+          <button on-click="removePerson(i)" s-else>删除</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</template>
+
+<script>
+  import { DataTypes } from 'san';
+  export default {
+    initData () {
+      return {
+        list: [
+          {
+            name: '张三',
+            status: 1, // 0 待审核 1 合格 2 不合格
+          },
+          {
+            name: '李四',
+            status: 2, // 0 待审核 1 合格 2 不合格
+          },
+          {
+            name: '王五',
+            status: 0, // 0 待审核 1 合格 2 不合格
+          },
+          {
+            name: '赵六',
+            status: 0, // 0 待审核 1 合格 2 不合格
+          },
+          {
+            name: '孙七',
+            status: 0, // 0 待审核 1 合格 2 不合格
+          },
+        ],
+      };
+    },
+    // 新增对象
+    addPerson: function() {
+      var name = prompt("请输入用户名", "");
+      if (!name) return false;
+      this.data.push('list', {
+        name: name,
+        status: 0,
+      });
+    },
+    // 审核对象
+    checkPerson: function(i) {
+      // ...这里的方法不能传对象直接改，很不方便有毒
+      this.data.set('list.' + i + '.status', 1);
+    },
+    // 删除对象
+    removePerson: function(i) {
+      this.data.removeAt('list', i);
+    }
+  }
+</script>
+<style scoped>
+  td:nth-child(2) {
+    width: 100px;
+    text-align: center;
+  }
+</style>
