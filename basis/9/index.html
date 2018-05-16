@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>22_24</title>
+  <style>
+    .box {
+      border: 1px solid #d9d9d9;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    p {
+      word-break: break-all;
+    }
+    #btnBox {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 编程一 -->
+  <div class="box">
+    <div class="form1">
+      <label>Number A:<input id="radio1-a" type="radio" name="math-obj" value="a"></label><input id="num1-a" type="text">
+      <label>Number B:<input id="radio1-b" type="radio" name="math-obj" value="b"></label><input id="num1-b" type="text">
+    </div>
+    <div id="btnBox1">
+      <button data-index="0">判断当前选中的输入框输入内容是否为数字</button>
+      <button data-index="1">把 A 四舍五入为 B 个小数位数的数字</button>
+      <button data-index="2">当前选中数字的绝对值</button>
+      <button data-index="3">对当前选中的数字进行上舍入</button>
+      <button data-index="4">对当前选中的数字进行下舍入</button>
+      <button data-index="5">把当前选中的数字四舍五入为最接近的整数</button>
+      <button data-index="6">返回 A 和 B 中的最高值</button>
+      <button data-index="7">返回 A 和 B 中的最低值</button>        
+    </div>
+    <p id="result1"></p>
+    <script>
+      var resultBox1 = document.getElementById('result1');
+      // 显示结果
+      var showResult1 = function(text) {
+        console.log(text);
+        resultBox1.innerHTML = text;
+      }
+      // 检查是否数字并返回结果，因input取值获得的是string，需通过转换来确定
+      var checkNumber = function(val, key) {
+        if (!Number(val) && val !== '0') {
+          showResult1('请确认' + key + '是否输入正确值？');
+          return { isNum: false };
+        }
+        return {
+          num: Number(val),
+          isNum: true,
+        }
+      }
+      document.getElementById('btnBox1').onclick = function(e) {
+        // 判断是否button
+        if (e.target.nodeName.toLowerCase() !== 'button') return false;
+        // 获取button的下标并执行相应事件
+        var btnIndex = e.target.dataset.index;
+        if (/[02345]/.test(btnIndex)) {
+          // 有选中项要求的先获取并判断有没有选中项
+          var radio = document.querySelector('.form1 input[type=radio]:checked');
+          if (!radio) return showResult1('请先选择一个输入框');
+          // 第一项判断是否数值
+          if (btnIndex === '0') {
+            var input = document.getElementById('num1-' + radio.value);
+            var resultText = !Number(input.value) && input.value !== '0' ? '不是数字' : '是数字';
+            return showResult1(resultText)
+          }
+          // 除第一项外需验证是否数值
+          var input = document.getElementById('num1-' + radio.value);
+          var numResult = checkNumber(input.value, radio.value.toUpperCase());
+          if (!numResult.isNum) return false;
+
+          switch(btnIndex) {
+            case '2':
+              showResult1(Math.abs(numResult.num)); 
+              break;
+            case '3':
+              showResult1(Math.ceil(numResult.num)); 
+              break;
+            case '4':
+              showResult1(Math.floor(numResult.num)); 
+              break;
+            case '5':
+              showResult1(Math.round(numResult.num)); 
+              break;
+            default:
+          }
+        } else {
+          // 判断是否数字
+          var inputA = document.getElementById('num1-a');
+          var inputB = document.getElementById('num1-b');
+          var numResultA = checkNumber(inputA.value, 'A');
+          if (!numResultA.isNum) return false;
+          var numResultB = checkNumber(inputB.value, 'B');
+          if (!numResultB.isNum) return false;
+
+          switch(btnIndex) {
+            case '1':
+              showResult1(numResultA.num.toFixed(numResultB.num));
+              break;
+            case '6':
+              showResult1(Math.max(numResultA.num, numResultB.num)); 
+              break;
+            case '7':
+              showResult1(Math.min(numResultA.num, numResultB.num)); 
+              break;
+            default:
+          }
+        }
+      }
+    </script>
+  </div>
+  <!-- 编程二 -->
+  <div class="box">
+    <div class="form2">
+      <label>String A:
+        <input id="radio2-a" type="radio" checked="true" name="str-obj" value="a">
+      </label>
+      <textarea id="str-a"></textarea>
+      <label>String B:
+        <input id="radio2-b" type="radio" name="str-obj" value="b">
+      </label>
+      <textarea id="str-b"></textarea>        
+      <label>Num A：<input id="num2-a" type="number" value="0"></label>
+      <label>Num B：<input id="num2-b" type="number" value="1"></label>
+    </div>
+    <div id="btnBox2">
+      <button data-index="0">获取当前选中输入的内容长度</button>
+      <button data-index="1">当前选中输入中的第3个字符</button>
+      <button data-index="2">把两个输入框的文字连接在一起输出（concat）</button>
+      <button data-index="3">输入B中的内容，在输入A的内容中第一次出现的位置（indexOf）</button>
+      <button data-index="4">输入A中的内容，在输入B的内容中最后一次出现的位置（lastIndexOf）</button>
+      <button data-index="5">使用slice获取选中输入框内容的部分内容，参数为num-a及num-b</button>
+      <button data-index="6">当前选中输入框的行数</button>
+      <button data-index="7">使用substr获取选中输入框内容的子字符串，参数为num-a及num-b</button>
+      <button data-index="8">把所选输入框中的内容全部转为大写</button>
+      <button data-index="9">把所选输入框中的内容全部转为小写</button>
+      <button data-index="10">把所选输入框中内容的半角空格全部去除</button>
+      <button data-index="11">把所选输入框中内容的a全部替换成另外一个输入框中的内容</button>
+    </div>
+    <p id="result2"></p>
+    <script>
+      var resultBox2 = document.getElementById('result2');
+      // 显示结果
+      var showResult2 = function(text) {
+        console.log(text);
+        resultBox2.innerHTML = text;
+      }
+      document.getElementById('btnBox2').onclick = function(e) {
+        // 判断是否button
+        if (e.target.nodeName.toLowerCase() !== 'button') return false;
+        // 获取button的下标并执行相应事件
+        var btnIndex = e.target.dataset.index;
+        if (!/^[234]$/.test(btnIndex)) {
+          // 有选中项要求的先获取并判断有没有选中项
+          var radio = document.querySelector('.form1 input[type=radio]:checked');
+          if (!radio) return showResult1('请先选择一个输入框');
+          // 第一项判断是否数值
+          if (btnIndex === '0') {
+            var input = document.getElementById('num1-' + radio.value);
+            var resultText = !Number(input.value) && input.value !== '0' ? '不是数字' : '是数字';
+            return showResult1(resultText)
+          }
+          // 除第一项外需验证是否数值
+          var input = document.getElementById('num1-' + radio.value);
+          var numResult = checkNumber(input.value, radio.value.toUpperCase());
+          if (!numResult.isNum) return false;
+
+          switch(btnIndex) {
+            case '0':
+              break;
+            case '1':
+              break;
+            case '5': 
+              break;
+            case '6': 
+              break;
+            case '7': 
+              break;
+            case '8': 
+              break;
+            case '9': 
+              break;
+            case '10': 
+              break;
+            case '11': 
+              break;
+            default:
+          }
+        } else {
+          // 判断是否数字
+          var inputA = document.getElementById('num1-a');
+          var inputB = document.getElementById('num1-b');
+          var numResultA = checkNumber(inputA.value, 'A');
+          if (!numResultA.isNum) return false;
+          var numResultB = checkNumber(inputB.value, 'B');
+          if (!numResultB.isNum) return false;
+
+          switch(btnIndex) {
+            case '2':
+              showResult(numResultA.num.toFixed(numResultB.num));
+              break;
+            case '3':
+              showResult(Math.max(numResultA.num, numResultB.num)); 
+              break;
+            case '4':
+              showResult(Math.min(numResultA.num, numResultB.num)); 
+              break;
+            default:
+          }
+        }
+      }
+    </script>
+    </script>
+  </div>
+</body>
+</html>
