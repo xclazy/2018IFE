@@ -45,7 +45,7 @@
         resultBox1.innerHTML = text;
       }
       // 检查是否数字并返回结果，因input取值获得的是string，需通过转换来确定
-      var checkNumber = function(val, key) {
+      var checkNumber1 = function(val, key) {
         if (!Number(val) && val !== '0') {
           showResult1('请确认' + key + '是否输入正确值？');
           return { isNum: false };
@@ -72,7 +72,7 @@
           }
           // 除第一项外需验证是否数值
           var input = document.getElementById('num1-' + radio.value);
-          var numResult = checkNumber(input.value, radio.value.toUpperCase());
+          var numResult = checkNumber1(input.value, radio.value.toUpperCase());
           if (!numResult.isNum) return false;
 
           switch(btnIndex) {
@@ -94,9 +94,9 @@
           // 判断是否数字
           var inputA = document.getElementById('num1-a');
           var inputB = document.getElementById('num1-b');
-          var numResultA = checkNumber(inputA.value, 'A');
+          var numResultA = checkNumber1(inputA.value, 'A');
           if (!numResultA.isNum) return false;
-          var numResultB = checkNumber(inputB.value, 'B');
+          var numResultB = checkNumber1(inputB.value, 'B');
           if (!numResultB.isNum) return false;
 
           switch(btnIndex) {
@@ -121,11 +121,11 @@
       <label>String A:
         <input id="radio2-a" type="radio" checked="true" name="str-obj" value="a">
       </label>
-      <textarea id="str-a"></textarea>
+      <textarea id="str2-a"></textarea>
       <label>String B:
         <input id="radio2-b" type="radio" name="str-obj" value="b">
       </label>
-      <textarea id="str-b"></textarea>        
+      <textarea id="str2-b"></textarea>        
       <label>Num A：<input id="num2-a" type="number" value="0"></label>
       <label>Num B：<input id="num2-b" type="number" value="1"></label>
     </div>
@@ -158,33 +158,46 @@
         var btnIndex = e.target.dataset.index;
         if (!/^[234]$/.test(btnIndex)) {
           // 有选中项要求的先获取并判断有没有选中项
-          var radio = document.querySelector('.form1 input[type=radio]:checked');
-          if (!radio) return showResult1('请先选择一个输入框');
-          // 第一项判断是否数值
-          if (btnIndex === '0') {
-            var input = document.getElementById('num1-' + radio.value);
-            var resultText = !Number(input.value) && input.value !== '0' ? '不是数字' : '是数字';
-            return showResult1(resultText)
-          }
-          // 除第一项外需验证是否数值
-          var input = document.getElementById('num1-' + radio.value);
-          var numResult = checkNumber(input.value, radio.value.toUpperCase());
-          if (!numResult.isNum) return false;
+          var radio = document.querySelector('.form2 input[type=radio]:checked');
+          if (!radio) return showResult2('请先选择一个输入框');
+
+          var textarea = document.getElementById('str2-' + radio.value);
+          // 判断是否有输入字符串（不排除全空格情况）
+          var textareaVal = textarea.value;
+          if (!textareaVal) return showResult2('请输入当前选中的值');
 
           switch(btnIndex) {
             case '0':
+              showResult2('内容长度：' + textareaVal.length);
               break;
             case '1':
+              if (textareaVal.length < 3) return showResult2('内容不足3个字符')
+              showResult2('第3个字符：' + textareaVal[2]);
               break;
             case '5': 
               break;
-            case '6': 
+            case '6':
+              // 创建两个DOM元素，外层p用来限制宽度，内层span用来存放文本计算行数
+              var p = document.createElement('p');
+              var span = document.createElement('span');
+              // 将p的宽度设为和目标textarea等宽并不可见
+              p.style.visibility = 'hidden';
+              p.style.width = getComputedStyle(textarea).width;
+              // 插入到页面上，不插入无法计算行数
+              p.append(span);
+              document.body.append(p);
+              // 将需计算行数的字符串插入到span，并处理换行
+              span.innerHTML = textareaVal.replace(/\r?\n/g, '<br>');
+              // span.getClientRects()获取行数，注：只有inline元素才可正确计算
+              showResult2('输入框行数：' + span.getClientRects().length);
               break;
             case '7': 
               break;
             case '8': 
+              showResult2('转为大写：' + textareaVal.toUpperCase());
               break;
             case '9': 
+              showResult2('转为小写：' + textareaVal.toLowerCase());
               break;
             case '10': 
               break;
@@ -193,23 +206,15 @@
             default:
           }
         } else {
-          // 判断是否数字
-          var inputA = document.getElementById('num1-a');
-          var inputB = document.getElementById('num1-b');
-          var numResultA = checkNumber(inputA.value, 'A');
-          if (!numResultA.isNum) return false;
-          var numResultB = checkNumber(inputB.value, 'B');
-          if (!numResultB.isNum) return false;
+              showResult2('');
+          // 判断是否都输入了内容
 
           switch(btnIndex) {
             case '2':
-              showResult(numResultA.num.toFixed(numResultB.num));
               break;
             case '3':
-              showResult(Math.max(numResultA.num, numResultB.num)); 
               break;
             case '4':
-              showResult(Math.min(numResultA.num, numResultB.num)); 
               break;
             default:
           }

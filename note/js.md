@@ -139,3 +139,13 @@
  * Array.join()
 
    若无传入参数，默认逗号拼接数组
+
+ * `inlineDOM.getClientRects()` 
+
+    返回一个TextRectangle(文本域)集合，就是TextRectangleList对象。
+    [参考链接](http://www.css88.com/archives/4187)
+
+    * TextRectangle数组的长度可知道文字是否换行，甚至是换了几行，
+    * TextRectangle的几个属性和鼠标位置比较可以知道鼠标在哪一行上
+    * ....
+    * 非IE浏览器只对inline有反应
