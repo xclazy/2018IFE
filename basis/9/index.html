@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,22 +12,31 @@
       padding: 10px;
       margin-bottom: 10px;
     }
+
     p {
       word-break: break-all;
     }
-    #btnBox {
+
+    .btnBox {
       margin-top: 10px;
     }
   </style>
 </head>
+
 <body>
   <!-- 编程一 -->
   <div class="box">
     <div class="form1">
-      <label>Number A:<input id="radio1-a" type="radio" name="math-obj" value="a"></label><input id="num1-a" type="text">
-      <label>Number B:<input id="radio1-b" type="radio" name="math-obj" value="b"></label><input id="num1-b" type="text">
+      <label>Number A:
+        <input id="radio1-a" type="radio" name="math-obj" value="a">
+      </label>
+      <input id="num1-a" type="text">
+      <label>Number B:
+        <input id="radio1-b" type="radio" name="math-obj" value="b">
+      </label>
+      <input id="num1-b" type="text">
     </div>
-    <div id="btnBox1">
+    <div id="btnBox1" class="btnBox">
       <button data-index="0">判断当前选中的输入框输入内容是否为数字</button>
       <button data-index="1">把 A 四舍五入为 B 个小数位数的数字</button>
       <button data-index="2">当前选中数字的绝对值</button>
@@ -34,18 +44,18 @@
       <button data-index="4">对当前选中的数字进行下舍入</button>
       <button data-index="5">把当前选中的数字四舍五入为最接近的整数</button>
       <button data-index="6">返回 A 和 B 中的最高值</button>
-      <button data-index="7">返回 A 和 B 中的最低值</button>        
+      <button data-index="7">返回 A 和 B 中的最低值</button>
     </div>
     <p id="result1"></p>
     <script>
       var resultBox1 = document.getElementById('result1');
       // 显示结果
-      var showResult1 = function(text) {
+      var showResult1 = function (text) {
         console.log(text);
         resultBox1.innerHTML = text;
       }
       // 检查是否数字并返回结果，因input取值获得的是string，需通过转换来确定
-      var checkNumber1 = function(val, key) {
+      var checkNumber1 = function (val, key) {
         if (!Number(val) && val !== '0') {
           showResult1('请确认' + key + '是否输入正确值？');
           return { isNum: false };
@@ -55,7 +65,7 @@
           isNum: true,
         }
       }
-      document.getElementById('btnBox1').onclick = function(e) {
+      document.getElementById('btnBox1').onclick = function (e) {
         // 判断是否button
         if (e.target.nodeName.toLowerCase() !== 'button') return false;
         // 获取button的下标并执行相应事件
@@ -75,18 +85,18 @@
           var numResult = checkNumber1(input.value, radio.value.toUpperCase());
           if (!numResult.isNum) return false;
 
-          switch(btnIndex) {
+          switch (btnIndex) {
             case '2':
-              showResult1(Math.abs(numResult.num)); 
+              showResult1(Math.abs(numResult.num));
               break;
             case '3':
-              showResult1(Math.ceil(numResult.num)); 
+              showResult1(Math.ceil(numResult.num));
               break;
             case '4':
-              showResult1(Math.floor(numResult.num)); 
+              showResult1(Math.floor(numResult.num));
               break;
             case '5':
-              showResult1(Math.round(numResult.num)); 
+              showResult1(Math.round(numResult.num));
               break;
             default:
           }
@@ -99,15 +109,15 @@
           var numResultB = checkNumber1(inputB.value, 'B');
           if (!numResultB.isNum) return false;
 
-          switch(btnIndex) {
+          switch (btnIndex) {
             case '1':
               showResult1(numResultA.num.toFixed(numResultB.num));
               break;
             case '6':
-              showResult1(Math.max(numResultA.num, numResultB.num)); 
+              showResult1(Math.max(numResultA.num, numResultB.num));
               break;
             case '7':
-              showResult1(Math.min(numResultA.num, numResultB.num)); 
+              showResult1(Math.min(numResultA.num, numResultB.num));
               break;
             default:
           }
@@ -125,11 +135,15 @@
       <label>String B:
         <input id="radio2-b" type="radio" name="str-obj" value="b">
       </label>
-      <textarea id="str2-b"></textarea>        
-      <label>Num A：<input id="num2-a" type="number" value="0"></label>
-      <label>Num B：<input id="num2-b" type="number" value="1"></label>
+      <textarea id="str2-b"></textarea>
+      <label>Num A：
+        <input id="num2-a" type="number" value="0">
+      </label>
+      <label>Num B：
+        <input id="num2-b" type="number" value="1">
+      </label>
     </div>
-    <div id="btnBox2">
+    <div id="btnBox2" class="btnBox">
       <button data-index="0">获取当前选中输入的内容长度</button>
       <button data-index="1">当前选中输入中的第3个字符</button>
       <button data-index="2">把两个输入框的文字连接在一起输出（concat）</button>
@@ -146,12 +160,27 @@
     <p id="result2"></p>
     <script>
       var resultBox2 = document.getElementById('result2');
+
       // 显示结果
-      var showResult2 = function(text) {
+      var showResult2 = function (text) {
         console.log(text);
         resultBox2.innerHTML = text;
       }
-      document.getElementById('btnBox2').onclick = function(e) {
+      // 判断Num A/B是否都输入正确数值并返回
+      var checkNumber2 = function () {
+        var numA = document.getElementById('num2-a').value;
+        var numB = document.getElementById('num2-b').value;
+        if ((!Number(numA) && numA !== '0') || (!Number(numB) && numB !== '0')) {
+          showResult2('请确保两个Num都输入正确');
+          return { checked: false };
+        }
+        return {
+          a: Number(numA),
+          b: Number(numB),
+          checked: true,
+        }
+      }
+      document.getElementById('btnBox2').onclick = function (e) {
         // 判断是否button
         if (e.target.nodeName.toLowerCase() !== 'button') return false;
         // 获取button的下标并执行相应事件
@@ -166,15 +195,20 @@
           var textareaVal = textarea.value;
           if (!textareaVal) return showResult2('请输入当前选中的值');
 
-          switch(btnIndex) {
+          switch (btnIndex) {
             case '0':
-              showResult2('内容长度：' + textareaVal.length);
+              showResult2('内容长度(不处理空白)：' + textareaVal.length);
               break;
             case '1':
               if (textareaVal.length < 3) return showResult2('内容不足3个字符')
               showResult2('第3个字符：' + textareaVal[2]);
               break;
-            case '5': 
+            case '5':
+              var checked25 = checkNumber2();
+              if (!checked25.checked) return false;
+              // 参数输入不正确无结果时提示错误信息
+              var text25 = textareaVal.slice(checked25.a, checked25.b) || '获取失败，请检查输入内容及参数';
+              showResult2('slice获取：' + text25);
               break;
             case '6':
               // 创建两个DOM元素，外层p用来限制宽度，内层span用来存放文本计算行数
@@ -191,37 +225,268 @@
               // span.getClientRects()获取行数，注：只有inline元素才可正确计算
               showResult2('输入框行数：' + span.getClientRects().length);
               break;
-            case '7': 
+            case '7':
+              var checked27 = checkNumber2();
+              if (!checked27.checked) return false;
+              // 参数输入不正确无结果时提示错误信息
+              var text27 = textareaVal.substr(checked27.a, checked27.b) || '获取失败，请检查输入内容及参数';
+              showResult2('substr获取：' + text27);
               break;
-            case '8': 
+            case '8':
               showResult2('转为大写：' + textareaVal.toUpperCase());
               break;
-            case '9': 
+            case '9':
               showResult2('转为小写：' + textareaVal.toLowerCase());
               break;
-            case '10': 
+            case '10':
+              // \u0020: 半角空格的Unicode字符串
+              showResult2('去除半角空格：' + textareaVal.replace(/\u0020/g, ''));
               break;
-            case '11': 
+            case '11':
+              // 找到非选中的另一个元素值
+              var textareaVal2 = document.querySelector('.form2 textarea:not(#str2-' + radio.value + ')').value;
+              showResult2('用 ' + textareaVal2 + ' 替换掉所有大小写a：' + textareaVal.replace(/a/gi, textareaVal2));
               break;
             default:
           }
         } else {
-              showResult2('');
-          // 判断是否都输入了内容
-
-          switch(btnIndex) {
+          var textareaVal1 = document.getElementById('str2-a').value;
+          var textareaVal2 = document.getElementById('str2-b').value;
+          switch (btnIndex) {
             case '2':
+              showResult2('文字连接：' + textareaVal1.concat(textareaVal2));
               break;
             case '3':
+              showResult2('第一次出现的位置：' + textareaVal1.indexOf(textareaVal2));
               break;
             case '4':
+              showResult2('最后一次出现的位置：' + textareaVal1.lastIndexOf(textareaVal2));
               break;
             default:
           }
         }
       }
     </script>
+  </div>
+  <!-- 编程三 -->
+  <div class="box">
+    <span>结果看console</span>
+    <div id="btnBox3" class="btnBox">
+      <button data-index="0">字符串头尾去除空格</button>
+      <button data-index="1">去掉字符串连续重复</button>
+    </div>
+    <script>
+      /*
+      实现一个字符串头尾去除空格的函数
+      注意需要去除的空格，包括全角、半角空格
+      暂时不需要学习和使用正则表达式的方式
+      */
+      function diyTrim(str) {
+        if (!str) return ''; // 空字符串直接返回结果
+
+        var result = "";
+
+        // ...远离正则...
+        // result = str.replace(/^\s+|\s+$/g, '');
+
+        var l = str.length;
+        // 用于截取的下标
+        var beginIndex = null;
+        var endIndex = l;
+
+        // 找出第一个非空字符串的下标
+        for (var i = 0; i < l; i++) {
+          // 字符的 Unicode 编码固定不变 半角空格32 全角空格12288
+          if (str[i] && str.charCodeAt(i) !== 32 && str.charCodeAt(i) !== 12288) {
+            beginIndex = i;
+            break;
+          }
+        }
+        // 没有找到非空字符直接返回空字符串
+        if (beginIndex === null) return '';
+        // 找出从后数起第一个非空字符串的下标
+        for (var j = l - 1; j >= 0; j--) {
+          // 字符的 Unicode 编码固定不变 半角空格32 全角空格12288
+          if (str[j] && str.charCodeAt(j) !== 32 && str.charCodeAt(j) !== 12288) {
+            endIndex = j;
+            break;
+          }
+        }
+        // 截取字符串
+        result = str.slice(beginIndex, endIndex + 1);
+        return result;
+      }
+
+      /*
+      去掉字符串str中，连续重复的地方
+      */
+      function removeRepetition(str) {
+        if (!str) return ''; // 空字符串直接返回结果
+
+        var result = "";
+
+        var l = str.length;
+        // 第一个不用检查
+        for (var i = 0; i < l; i++) {
+          if (i !== 0 && str[i] === str[i - 1]) continue;
+          result += str[i];
+        }
+
+        return result;
+      }
+
+      document.getElementById('btnBox3').onclick = function (e) {
+        // 判断是否button
+        if (e.target.nodeName.toLowerCase() !== 'button') return false;
+        // 获取button的下标并执行相应事件
+        var btnIndex = e.target.dataset.index;
+        // 运行测试用例
+        if (btnIndex === '0') {
+          console.log('验证头尾去空格');
+          console.log(diyTrim(' a f b    ')); // ->a f b
+          console.log(diyTrim('    ffdaf    ')); // ->ffdaf
+          console.log(diyTrim('1    ')); // ->1
+          console.log(diyTrim('　　f')); // ->f
+          console.log(diyTrim('  　  a f b 　　 ')); // ->a f b
+          console.log(diyTrim(' ')); // ->
+          console.log(diyTrim('　')); // ->
+          console.log(diyTrim('')); // ->
+        } else {
+          console.log('验证去掉连续重复');
+          console.log(removeRepetition("aaa")); // ->a
+          console.log(removeRepetition("abbba")); // ->aba
+          console.log(removeRepetition("aabbaabb")); // ->abab
+          console.log(removeRepetition("")); // ->
+          console.log(removeRepetition("abc")); // ->abc
+        }
+      }
+    </script>
+  </div>
+  <div class="box">
+    <span>结果看console</span>
+    <div id="btnBox4" class="btnBox">
+      <button data-index="0">根据name找到对应的id</button>
+      <button data-index="1">根据id找到对应的name</button>
+      <button data-index="2">所有名字前序遍历</button>
+      <button data-index="3">所有名字中序遍历</button>
+      <button data-index="4">所有名字后序遍历</button>
+    </div>
+    <script>
+      var tree = {
+        "id": 0,
+        "name": "root",
+        "left": {
+          "id": 1,
+          "name": "Simon",
+          "left": {
+            "id": 3,
+            "name": "Carl",
+            "left": {
+              "id": 7,
+              "name": "Lee",
+              "left": {
+                "id": 11,
+                "name": "Fate"
+              }
+            },
+            "right": {
+              "id": 8,
+              "name": "Annie",
+              "left": {
+                "id": 12,
+                "name": "Saber"
+              }
+            }
+          },
+          "right": {
+            "id": 4,
+            "name": "Tony",
+            "left": {
+              "id": 9,
+              "name": "Candy"
+            }
+          }
+        },
+        "right": {
+          "id": 2,
+          "name": "right",
+          "left": {
+            "id": 5,
+            "name": "Carl",
+          },
+          "right": {
+            "id": 6,
+            "name": "Carl",
+            "right": {
+              "id": 10,
+              "name": "Kai"
+            }
+          }
+        }
+      }
+
+      // 假设id和name均不会重复，根据输入name找到对应的id
+      function findIdByName(name) {
+
+      }
+
+      // 假设id和name均不会重复，根据输入id找到对应的name
+      function findNameById(id) {
+
+      }
+
+      // 把这个对象中所有的名字以“前序遍历”的方式全部输出到console中
+      function getListWithDLR() {
+
+      }
+
+      // 把这个对象中所有的名字以“中序遍历”的方式全部输出到console中
+      function getListWithLDR() {
+
+      }
+
+      // 把这个对象中所有的名字以“后序遍历”的方式全部输出到console中
+      function getListWithLRD() {
+
+      }
+      
+      document.getElementById('btnBox4').onclick = function (e) {
+        // 判断是否button
+        if (e.target.nodeName.toLowerCase() !== 'button') return false;
+        // 获取button的下标并执行相应事件
+        var btnIndex = e.target.dataset.index;
+        // 格局按钮运行测试用例
+        switch(btnIndex) {
+          case '0':
+            console.log('根据name找到对应的id：');
+            console.log('name:root, id:' + findIdByName('root')); // ->0
+            console.log('name:Carl, id:' + findIdByName('Carl')); // ->3
+            console.log('name:Annie, id:' + findIdByName('Annie')); // ->8
+            console.log('name:Carl, id:' + findIdByName('Carl')); // ->6
+            break;
+          case '1':
+            console.log('根据id找到对应的name：');
+            console.log('id:2, name:' + findIdByName(2)); // ->right
+            console.log('id:10, name:' + findIdByName(10)); // ->Kai
+            console.log('id:12, name:' + findIdByName(12)); // ->Saber
+            break;
+          case '2':
+            console.log('所有名字前序遍历：');
+            getListWithDLR();
+            break;
+          case '3':
+            console.log('所有名字中序遍历：');
+            getListWithLDR();
+            break;
+          case '4':
+            console.log('所有名字后序遍历：');
+            getListWithLRD();
+            break;
+          default:
+        }
+      }
     </script>
   </div>
 </body>
+
 </html>
