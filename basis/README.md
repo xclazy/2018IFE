@@ -37,3 +37,7 @@
 * #### 练习八：让你和页面对话
 
     <a href="http://ife.baidu.com/course/detail/id/49" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/basis/8/" target="_blank">作业</a>
+    
+* #### 练习九：JavaScript里面的居民们
+
+    <a href="http://ife.baidu.com/course/detail/id/50" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/basis/9/" target="_blank">作业</a>
