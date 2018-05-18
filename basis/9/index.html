@@ -254,7 +254,7 @@
           var textareaVal2 = document.getElementById('str2-b').value;
           switch (btnIndex) {
             case '2':
-              showResult2('文字连接：' + textareaVal1.concat(textareaVal2));
+              showResult2('文字连接：' + (textareaVal1.concat(textareaVal2) || '空字符串'));
               break;
             case '3':
               showResult2('第一次出现的位置：' + textareaVal1.indexOf(textareaVal2));
@@ -362,6 +362,7 @@
       }
     </script>
   </div>
+  <!-- 编程三 -->
   <div class="box">
     <span>结果看console</span>
     <div id="btnBox4" class="btnBox">
@@ -427,48 +428,84 @@
 
       // 假设id和name均不会重复，根据输入name找到对应的id
       function findIdByName(name) {
-
+        var loop = function (obj) {
+          // 对象不存在时返回
+          if (!obj) return false;
+          // 判断名字并返回id
+          if (obj.name === name) return obj.id;
+          // 进入下个循环
+          // a||b 当a为false时会运行b, 0会被当成false需特殊处理
+          return (loop(obj.left) || loop(obj.left) === 0) || loop(obj.right);
+        };
+        // 从根tree开始执行循环
+        return loop(tree);
       }
 
       // 假设id和name均不会重复，根据输入id找到对应的name
       function findNameById(id) {
-
+        //  创建循环方法
+        var loop = function (obj) {
+          // 对象不存在时返回
+          if (!obj) return false;
+          // 判断id并返回name
+          if (obj.id === id) return obj.name;
+          // 进入下个循环
+          // a||b 当a为false时会运行b, 0会被当成false需特殊处理
+          return loop(obj.left) || loop(obj.right);
+        };
+        // 从根tree开始执行循环
+        return loop(tree);
       }
 
       // 把这个对象中所有的名字以“前序遍历”的方式全部输出到console中
       function getListWithDLR() {
-
+        var loop = function (obj) {
+          console.log(obj.name);
+          if (obj.left) loop(obj.left);
+          if (obj.right) loop(obj.right);
+        };
+        loop(tree);
       }
 
       // 把这个对象中所有的名字以“中序遍历”的方式全部输出到console中
       function getListWithLDR() {
-
+        var loop = function (obj) {
+          if (obj.left) loop(obj.left);
+          console.log(obj.name);
+          if (obj.right) loop(obj.right);
+        };
+        loop(tree);
       }
 
       // 把这个对象中所有的名字以“后序遍历”的方式全部输出到console中
       function getListWithLRD() {
-
+        var loop = function (obj) {
+          if (obj.left) loop(obj.left);
+          if (obj.right) loop(obj.right);
+          console.log(obj.name);
+        };
+        loop(tree);
       }
-      
+
       document.getElementById('btnBox4').onclick = function (e) {
         // 判断是否button
         if (e.target.nodeName.toLowerCase() !== 'button') return false;
         // 获取button的下标并执行相应事件
         var btnIndex = e.target.dataset.index;
         // 根据按钮运行测试用例
-        switch(btnIndex) {
+        switch (btnIndex) {
           case '0':
             console.log('根据name找到对应的id：');
             console.log('name:root, id:' + findIdByName('root')); // ->0
             console.log('name:Carl, id:' + findIdByName('Carl')); // ->3
             console.log('name:Annie, id:' + findIdByName('Annie')); // ->8
-            console.log('name:Carl, id:' + findIdByName('Carl')); // ->6
+            console.log('name:Kai, id:' + findIdByName('Kai')); // ->10
             break;
           case '1':
             console.log('根据id找到对应的name：');
-            console.log('id:2, name:' + findIdByName(2)); // ->right
-            console.log('id:10, name:' + findIdByName(10)); // ->Kai
-            console.log('id:12, name:' + findIdByName(12)); // ->Saber
+            console.log('id:2, name:' + findNameById(1)); // ->Simon
+            console.log('id:10, name:' + findNameById(10)); // ->Kai
+            console.log('id:12, name:' + findNameById(12)); // ->Saber
             break;
           case '2':
             console.log('所有名字前序遍历：');
@@ -484,6 +521,332 @@
             break;
           default:
         }
+      }
+    </script>
+  </div>
+  <!-- 编程四 -->
+  <div class="box">
+    <input id="queue-input4" type="text">
+    <p id="queue-cont4">队列内容：apple-&gt;pear</p>
+    <p id="queue-err4"></p>
+    <button id="in-btn4">入队</button>
+    <button id="out-btn4">出队</button>
+    <button id="font-btn4">打印队头元素内容</button>
+    <button id="empty-btn4">判断队列是否为空</button>
+    <button id="change-btn4">队头:最后一个元素，点击切换</button>
+
+    <script>
+      var queue4 = ["apple", "pear"];
+      var input4 = document.getElementById('queue-input4');
+      var contBox4 = document.getElementById('queue-cont4');
+      var errBox4 = document.getElementById('queue-err4');
+
+      var FtoE = true; // 判断队头方向，false head<-tail , true tail->head
+      // 报错逻辑
+      var showError = function (text) {
+        errBox4.innerHTML = text;
+        setTimeout(function () {
+          errBox4.innerHTML = '';
+        }, 2000)
+      }
+      // 入队
+      document.getElementById('in-btn4').onclick = function () {
+        // 判断输入内容
+        var value = input4.value;
+        if (!value) return showError('请先输入内容');
+        // 处理返回新队列，在队尾插入数据
+        FtoE ? queue4.unshift(value) : queue4.push(value);
+        contBox4.innerHTML = '队列内容：' + (queue4.join(FtoE ? '->' : '<-') || '无');
+      }
+      // 出队
+      document.getElementById('out-btn4').onclick = function () {
+        // 判断输入内容
+        // var value = input4.value;
+        // if (!value) return showError('请先输入内容');
+        // // 判断输入内容是否在队列中
+        // var index = queue4.indexOf(value);
+        // if (index === -1) return showError('输入内容不在队列里');
+        // 处理返回新队列
+        FtoE5 ? queue4.pop() : queue4.shift();
+        contBox4.innerHTML = '队列内容：' + (queue4.join(FtoE ? '->' : '<-') || '无');
+      }
+      // 输出元素
+      document.getElementById('font-btn4').onclick = function () {
+        var index = FtoE ? queue4.length - 1 : 0;
+        contBox4.innerHTML = '队头元素：' + (queue4[index] || '无');
+      }
+      // 判断是否为空
+      document.getElementById('empty-btn4').onclick = function () {
+        contBox4.innerHTML = '队列' + (queue4.length ? '不为' : '为') + '空';
+      }
+      // 切换队头
+      document.getElementById('change-btn4').onclick = function () {
+        FtoE = !FtoE;
+        this.innerHTML = '队头:' + (FtoE ? '最后' : '第') + '一个元素，点击切换';
+        contBox4.innerHTML = '队列内容：' + (queue4.join(FtoE ? '->' : '<-') || '无');
+      }
+    </script>
+  </div>
+  <!-- 编程五 -->
+  <div class="box">
+    <input id="stack-input5" type="text">
+    <p id="stack-cont5">栈内容：apple-&gt;pear</p>
+    <p id="stack-err5"></p>
+    <button id="push-btn5">进栈</button>
+    <button id="pop-btn5">退栈</button>
+    <button id="font-btn5">打印栈顶元素内容</button>
+    <button id="empty-btn5">判断栈是否为空</button>
+    <button id="change-btn5">栈顶:最后一个元素，点击切换</button>
+
+    <script>
+      var stack5 = ["apple", "pear"];
+      var input5 = document.getElementById('stack-input5');
+      var contBox5 = document.getElementById('stack-cont5');
+      var errBox5 = document.getElementById('stack-err5');
+
+      var FtoE5 = true; // 判断队头方向，false head<-tail , true tail->head
+      // 报错逻辑
+      var showError5 = function (text) {
+        errBox5.innerHTML = text;
+        setTimeout(function () {
+          errBox5.innerHTML = '';
+        }, 2000)
+      }
+      // 入队
+      document.getElementById('push-btn5').onclick = function () {
+        // 判断输入内容
+        var value = input5.value;
+        if (!value) return showError5('请先输入内容');
+        // 处理返回新队列，在队尾插入数据
+        FtoE5 ? stack5.push(value) : stack5.unshift(value);
+        contBox5.innerHTML = '栈内容：' + (stack5.join(FtoE5 ? '->' : '<-') || '无');
+      }
+      // 出队
+      document.getElementById('pop-btn5').onclick = function () {
+        // 判断输入内容
+        // var value = input5.value;
+        // if (!value) return showError5('请先输入内容');
+        // // 判断输入内容是否在队列中
+        // var index = stack5.indexOf(value);
+        // if (index === -1) return showError5('输入内容不在队列里');
+        // 处理返回新队列
+        FtoE5 ? stack5.pop() : stack5.shift();
+        contBox5.innerHTML = '栈内容：' + (stack5.join(FtoE5 ? '->' : '<-') || '无');
+      }
+      // 输出元素
+      document.getElementById('font-btn5').onclick = function () {
+        var index = FtoE5 ? stack5.length - 1 : 0;
+        contBox5.innerHTML = '栈顶元素：' + (stack5[index] || '无');
+      }
+      // 判断是否为空
+      document.getElementById('empty-btn5').onclick = function () {
+        contBox5.innerHTML = '栈' + (stack5.length ? '不为' : '为') + '空';
+      }
+      // 切换队头
+      document.getElementById('change-btn5').onclick = function () {
+        FtoE5 = !FtoE5;
+        this.innerHTML = '栈顶:' + (FtoE5 ? '最后' : '第') + '一个元素，点击切换';
+        contBox5.innerHTML = '栈内容：' + (stack5.join(FtoE5 ? '->' : '<-') || '无');
+      }
+    </script>
+  </div>
+  <!-- 编程六 -->
+  <div class="box">
+    <span>结果看console</span>
+    <p>对象：[43, 54, 4, -4, 84, 100, 58, 27, 140]</p>
+    <button id="sort6-btn1">按值大小排序</button>
+    <p>数组：['apple', 'dog', 'cat', 'car', 'zoo', 'orange', 'airplane']</p>
+    <button id="sort6-btn2">按字母排序</button>
+    <p>数组：[[10, 14], [16, 60], [7, 44], [26, 35], [22, 63]]</p>
+    <button id="sort6-btn3">按第二个数从大到小排序</button>
+    <p>数组：...看console</p>
+    <button id="sort6-btn4">按对象value值从小到大排序</button>
+    <script>
+      // 按值大小排序
+      document.getElementById('sort6-btn1').onclick = function () {
+        var arr = [43, 54, 4, -4, 84, 100, 58, 27, 140];
+        console.log('原数组：' + JSON.stringify(arr));
+
+        // 从大到小
+        arr.sort(function (a, b) {
+          return b - a;
+        })
+        console.log('从大到小：' + JSON.stringify(arr));
+
+        // 从小到大
+        arr.sort(function (a, b) {
+          return a - b;
+        })
+        console.log('从小到大：' + JSON.stringify(arr));
+        console.log('-----------------------------');
+      }
+      // 按字母排序
+      document.getElementById('sort6-btn2').onclick = function () {
+        var arr = ['apple', 'dog', 'cat', 'car', 'zoo', 'orange', 'airplane'];
+
+        console.log('原数组：' + JSON.stringify(arr));
+
+        // 从a-z
+        arr.sort(function (a, b) {
+          // 避免大小写问题
+          var valueA = a.toUpperCase();
+          var valueB = b.toUpperCase();
+          return valueA > valueB ? 1 : -1;
+        })
+        console.log('从a到z：' + JSON.stringify(arr));
+
+        // 从z-a
+        arr.sort(function (a, b) {
+          // 避免大小写问题
+          var valueA = a.toUpperCase();
+          var valueB = b.toUpperCase();
+          return valueA > valueB ? -1 : 1;
+        })
+        console.log('从z到a：' + JSON.stringify(arr));
+        console.log('-----------------------------');
+      }
+      // 按第二个数字排序
+      document.getElementById('sort6-btn3').onclick = function () {
+        var arr = [[10, 14], [16, 60], [7, 44], [26, 35], [22, 63]];
+        console.log('原数组：' + JSON.stringify(arr));
+
+        // 从大到小
+        arr.sort(function (a, b) {
+          return b[1] - a[1];
+        })
+        console.log('第二个数从大到小：' + JSON.stringify(arr));
+        console.log('-----------------------------');
+      }
+      // 按对象的value值排序
+      document.getElementById('sort6-btn4').onclick = function () {
+        var arr = [
+          {
+            id: 1,
+            name: 'candy',
+            value: 40
+          }, {
+            id: 2,
+            name: 'Simon',
+            value: 50
+          }, {
+            id: 3,
+            name: 'Tony',
+            value: 45
+          }, {
+            id: 4,
+            name: 'Annie',
+            value: 60
+          }
+        ];
+
+        console.log('原数组：' + JSON.stringify(arr));
+        // 从大到小
+        arr.sort(function (a, b) {
+          return b.value - a.value;
+        })
+        console.log('value值从大到小：' + JSON.stringify(arr));
+        console.log('-----------------------------');
+      }
+    </script>
+  </div>
+  <!-- 编程七 -->
+  <div class="box">
+    <span>结果看console</span>
+    <button id="sort7-btn1">对象转数组</button>
+    <button id="sort7-btn2">数组转对象</button>
+    <script>
+      // 对象转数组
+      document.getElementById('sort7-btn1').onclick = function () {
+        var scoreObject = {
+          "Tony": {
+            "Math": 95,
+            "English": 79,
+            "Music": 68
+          },
+          "Simon": {
+            "Math": 100,
+            "English": 95,
+            "Music": 98
+          },
+          "Annie": {
+            "Math": 54,
+            "English": 65,
+            "Music": 88
+          }
+        };
+
+        
+        // 遍历对象属性组装数组，不处理数据异常情况
+        var scoreArr = [];
+        for (key in scoreObject) {
+          var person = scoreObject[key];
+          scoreArr.push([key, person.Math, person.English, person.Music]);
+        }
+
+        console.log('原对象：');
+        console.log(scoreObject);
+        console.log('新数组：');
+        console.log(scoreArr);
+        console.log('-----------------------------');
+      }
+      // 数组转对象
+      document.getElementById('sort7-btn2').onclick = function () {
+        var menuArr = [
+          [1, "Area1", -1],
+          [2, "Area2", -1],
+          [3, "Area1-1", 1],
+          [4, "Area1-2", 1],
+          [5, "Area2-1", 2],
+          [6, "Area2-2", 2],
+          [7, "Area1-2-3", 4],
+          [8, "Area2-2-1", 6],
+        ];
+
+        // 遍历数组组装对象，不处理数据异常情况
+        var menuObject = {};
+        
+        // 循环查找父级元素
+        var objectLoop = function(obj, id) {
+          // 存放元素
+          var parent = null;
+          // 根据id查找key
+          for(key in obj) {
+            if (key === id) {
+              // 存在key但并非对象，需先处理成对象
+              if (!obj[key]) obj[key] = {};
+              // 找到后退出循环
+              parent = obj[key];
+              break;
+            } else if (obj[key].subMenu) {
+              // 继续查找子级
+              parent = objectLoop(obj[key].subMenu, id);
+              // 找到后退出循环
+              if (parent) break;
+            }
+          }
+          return parent;
+        }
+        menuArr.map(function(item) {
+          // key转化为字符串
+          var keyP = item[2].toString(); // 父级key
+          var keyC = item[0].toString(); // 数据对应key值
+          // 查找父级
+          var parentObj = objectLoop(menuObject, keyP);
+          // 无父级时，父级为根对象
+          if (!parentObj) {
+            menuObject[keyC] = { name: item[1] };
+          } else {
+            // 若subMenu非对象，需先处理成对象
+            if (!parentObj.subMenu) parentObj.subMenu = {};
+            parentObj.subMenu[keyC] = { name: item[1] };
+          }
+        })
+
+        console.log('原数组：');
+        console.log(menuArr);
+        console.log('新对象：');
+        console.log(menuObject);
+        console.log('-----------------------------');
       }
     </script>
   </div>
