@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>25_27</title>
+  <style>
+    .box {
+      border: 1px solid #d9d9d9;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      word-break: break-all;
+    }
+
+    .btnBox {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 变成一 -->
+  <div class="box">
+    <span>一、GoSteps()函数</span>
+    <p>结果看console</p>
+    <button id="btn1"> 走你ε=ε=ε=ε=ε=ε= (╯’ – ‘)╯</button>
+    <script>
+      function Go() {
+        console.log("Go");
+      }
+      // 走走走
+      function GoSteps(n) {
+        console.log('----- GoStep('+ n +') -----')
+
+        // 缺少参数默认执行一次Go()
+        if (n === undefined) {
+          return Go();
+        }
+        // 当n < 0为真才继续执行
+        if (n < 0) return false;
+
+        // 参数处理成整数，向下取整
+        n = Math.floor(n);
+        // 循环触发
+        while(n--) {
+          Go();
+        }
+      }
+      // 点击触发
+      document.getElementById('btn1').onclick = function () {
+        GoSteps(10); // Go 10次
+        GoSteps(1); // Go 1次
+        GoSteps(); // Go 1次，认为缺少参数时，默认参数为1
+        GoSteps(0);  // 0次
+        GoSteps(-1);  // 0次
+        GoSteps(1.4);  // Go 1次
+        GoSteps(1.6);  // Go 1次
+        GoSteps(-1);  // 0次
+        GoSteps(true);  // Go 1次
+        GoSteps(false);  // 0次
+        GoSteps("Test");  // 0次
+        GoSteps(NaN);  // 0次
+        GoSteps(null);  // 0次
+      }
+    </script>
+  </div>
+  <div class="box">
+    <span id="result2"></span>
+    <div id="btnBox2">
+      <button data-format="YYYY 年 MM 月 DD 日 星期 W HH:mm:ss ">日期格式 YYYY 年 MM 月 DD 日 星期 D HH:mm:ss</button>
+      <button data-format="YYYY-MM-DD WW hh:mm:ss md">日期格式 2008-10-10 Monday 07:10:30 PM</button>
+    </div>
+    <script>
+      var resultBox2 = document.getElementById('#result2');
+      var format = null; // 存放日期显示格式 
+
+      var weekT = ['日', '一', '二', '三', '四', '五', '六'];
+      // 获取星期
+      var getWeek = function(date) {
+        
+      }
+      // 时间倒计时
+      var countDown = function() {
+      }
+
+
+      document.getElementById('btnBox2').onclick = function(e) {
+        var btn = e.target;
+        // 判断是否有新的日期格式
+        if (!btn.dataset.format) return false;
+        format = btn.dataset.format;
+      }
+    </script>
+  </div>
+</body>
+
+</html>
