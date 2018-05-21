@@ -24,7 +24,7 @@
 </head>
 
 <body>
-  <!-- 变成一 -->
+  <!-- 编程一 -->
   <div class="box">
     <span>一、GoSteps()函数</span>
     <p>结果看console</p>
@@ -35,7 +35,7 @@
       }
       // 走走走
       function GoSteps(n) {
-        console.log('----- GoStep('+ n +') -----')
+        console.log('----- GoStep(' + n + ') -----')
 
         // 缺少参数默认执行一次Go()
         if (n === undefined) {
@@ -47,7 +47,7 @@
         // 参数处理成整数，向下取整
         n = Math.floor(n);
         // 循环触发
-        while(n--) {
+        while (n--) {
           Go();
         }
       }
@@ -69,33 +69,106 @@
       }
     </script>
   </div>
+  <!-- 编程二 -->
   <div class="box">
-    <span id="result2"></span>
-    <div id="btnBox2">
-      <button data-format="YYYY 年 MM 月 DD 日 星期 W HH:mm:ss ">日期格式 YYYY 年 MM 月 DD 日 星期 D HH:mm:ss</button>
-      <button data-format="YYYY-MM-DD WW hh:mm:ss md">日期格式 2008-10-10 Monday 07:10:30 PM</button>
-    </div>
+    <span>二、最简单的时钟</span>
+    <p id="clock1" data-format="YYYY 年 MM 月 DD 日 星期ww HH:mm:ss"></p>
+    <p id="clock2" data-format="YYYY-MM-DD WW hh:mm:ss md"></p>
     <script>
-      var resultBox2 = document.getElementById('#result2');
-      var format = null; // 存放日期显示格式 
-
-      var weekT = ['日', '一', '二', '三', '四', '五', '六'];
-      // 获取星期
-      var getWeek = function(date) {
-        
+      // --- 数字位数补0 (暂只考虑日期用两位数) ---
+      var fillNum = function (num) {
+        return num >= 10 ? num : '0' + num;
       }
-      // 时间倒计时
-      var countDown = function() {
-      }
+      // ---------------------------------------
+      // --- 获取星期 ---
+      // 显示文案
+      var week = ['日', '一', '二', '三', '四', '五', '六'];
+      var weekEn = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-
-      document.getElementById('btnBox2').onclick = function(e) {
-        var btn = e.target;
-        // 判断是否有新的日期格式
-        if (!btn.dataset.format) return false;
-        format = btn.dataset.format;
+      var getWeek = function (date) {
+        var day = date.getDay();
+        return {
+          ww: week[day], // 中文星期
+          WW: weekEn[day], // 英文星期
+        }
       }
+      // ---------------
+      // --- 获取小时 ---
+      var getHours = function (date) {
+        var hours = date.getHours();
+        return {
+          HH: fillNum(hours), // 24小时制
+          hh: hours > 12 ? fillNum(hours - 12) : fillNum(hours), // 12小时制
+        }
+      }
+      // ---------------
+      // --- 日期格式化 ---
+      var dayFormat = function (day, format) {
+        // 以约定的字段存放处理后的值
+        var obj = {
+          YYYY: day.getFullYear(), // 年份
+          MM: fillNum(day.getMonth() + 1), // 月份
+          DD: fillNum(day.getDate()), // 日
+          mm: fillNum(day.getMinutes()), // 分钟
+          ss: fillNum(day.getSeconds()), // 秒
+          md: day.getHours() >= 12 ? 'AM' : 'PM', // am pm
+        }
+        // 小时
+        Object.assign(obj, getHours(day));
+        // 星期
+        Object.assign(obj, getWeek(day));
+
+        // 组装格式化后的字符串
+        var str = format || 'YYYY 年 MM 月 DD 日 星期ww HH:mm:ss';
+        for (k in obj) {
+          if (format.indexOf(k) !== -1) str = str.replace(k, obj[k]);
+        }
+        return str;
+      }
+      // -----------------
+      // --- 倒计时走起 ---
+      var clock1 = document.getElementById('clock1');
+      var clock2 = document.getElementById('clock2');
+      var format1 = clock1.dataset.format; // 格式写在标签内
+      var format2 = clock2.dataset.format; // 格式写在标签内
+
+      var countdown = function () {
+        var day = new Date();
+        clock1.innerHTML = dayFormat(day, format1);
+        clock2.innerHTML = dayFormat(day, format2);
+        setTimeout(countdown, 1000);
+      }
+      countdown();
+      // -----------------
     </script>
+  </div>
+  <!-- 编程三 -->
+  <div class="box">
+    <select id="year-select">
+      <option value="2010">2010</option>
+    </select>
+
+    <select id="month-select">
+      <option value="1">1</option>
+    </select>
+
+    <select id="day-select">
+      <option value="1">1</option>
+    </select>
+
+    <select id="hour-select">
+      <option value="0">00</option>
+    </select>
+
+    <select id="minite-select">
+      <option value="0">0</option>
+    </select>
+
+    <select id="second-select">
+      <option value="0">0</option>
+    </select>
+
+    <p id="result-wrapper">现在距离 2001年1月1日星期X HH:MM:SS 还有 X 天 X 小时 X 分 X 秒</p>
   </div>
 </body>
 
