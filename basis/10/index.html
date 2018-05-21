@@ -145,30 +145,77 @@
   <!-- 编程三 -->
   <div class="box">
     <select id="year-select">
-      <option value="2010">2010</option>
+      <option value="2014">2014</option>
+      <option value="2015">2015</option>
+      <option value="2016">2016</option>
+      <option value="2017">2017</option>
+      <option value="2018">2018</option>
+      <option value="2019">2019</option>
+      <option value="2020">2020</option>
     </select>
-
     <select id="month-select">
       <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
     </select>
 
-    <select id="day-select">
-      <option value="1">1</option>
-    </select>
+    <select id="day-select"></select>
 
-    <select id="hour-select">
-      <option value="0">00</option>
-    </select>
+    <select id="hour-select"></select>
 
-    <select id="minite-select">
-      <option value="0">0</option>
-    </select>
+    <select id="minite-select"></select>
 
-    <select id="second-select">
-      <option value="0">0</option>
-    </select>
+    <select id="second-select"></select>
 
     <p id="result-wrapper">现在距离 2001年1月1日星期X HH:MM:SS 还有 X 天 X 小时 X 分 X 秒</p>
+    <script>
+      var daySelect = document.querySelector('#day-select');
+      // ..生成html（手动写html太麻烦）..
+      var html = '<option value="num">num</option>'; // 模版
+      var init = function(day) {
+        // 配置时分秒选项
+        var timeMax = 60; // 分秒最大值
+        var dayMax = 31; // 日最大值，按一月算
+        var hourMax = 24; // 时最大值
+        var options = [];
+        var optionsDay = [];
+        var optionsHour = [];
+        for (var i = 0; i < timeMax; i ++) {
+          options.push(html.replace(/num/g, i));
+          if (i !== 0 && i < dayMax) optionsDay.push(html.replace(/num/g, i));
+          if (i < hourMax) optionsHour.push(html.replace(/num/g, fillNum(i)));
+        }
+        daySelect.innerHTML = optionsDay.join('');
+        document.getElementById('hour-select').innerHTML = optionsHour.join('');
+        document.getElementById('minite-select').innerHTML = options.join('');
+        document.getElementById('second-select').innerHTML = options.join('');
+      }
+      init();
+
+      // 日选项配置
+      var setHourOptions = function(num) {
+        var options = [];
+        for (var i = 1; i < num; i ++) {
+          options.push(html.replace(/num/g, i));
+        }
+        daySelect.innerHTML = optionsDay.join('');
+      }
+      var selects = document.querySelectorAll('select');
+      for (var i = 0; i < selects.length; i ++) {
+        selects[i].addEventListener('change', function(e) {
+          console.log(e.target.id)
+        })
+      }
+    </script>
   </div>
 </body>
 
