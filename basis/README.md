@@ -41,3 +41,7 @@
 * #### 练习九：JavaScript里面的居民们
 
     <a href="http://ife.baidu.com/course/detail/id/50" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/basis/9/" target="_blank">作业</a>
+    
+* #### 练习十：倒数开始 滴答滴 滴答滴
+
+    <a href="http://ife.baidu.com/course/detail/id/51" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/basis/10/" target="_blank">作业</a>

@@ -107,10 +107,14 @@
         // 以约定的字段存放处理后的值
         var obj = {
           YYYY: day.getFullYear(), // 年份
-          MM: fillNum(day.getMonth() + 1), // 月份
-          DD: fillNum(day.getDate()), // 日
-          mm: fillNum(day.getMinutes()), // 分钟
-          ss: fillNum(day.getSeconds()), // 秒
+          'M+': day.getMonth() + 1, // 月份
+          'D+': day.getDate(), // 日
+          'm+': day.getMinutes(), // 分钟
+          's+': day.getSeconds(), // 秒
+          MM: fillNum(day.getMonth() + 1), // 月份-补位
+          DD: fillNum(day.getDate()), // 日-补位
+          mm: fillNum(day.getMinutes()), // 分钟-补位
+          ss: fillNum(day.getSeconds()), // 秒-补位
           md: day.getHours() >= 12 ? 'AM' : 'PM', // am pm
         }
         // 小时
@@ -176,43 +180,129 @@
 
     <select id="second-select"></select>
 
-    <p id="result-wrapper">现在距离 2001年1月1日星期X HH:MM:SS 还有 X 天 X 小时 X 分 X 秒</p>
+    <p id="result-wrapper"></p>
     <script>
-      var daySelect = document.querySelector('#day-select');
+      // 用户当前选择的日期,全部以字符串存储
+      var currentDate = {
+        year: '2014',
+        month: '1',
+        day: '1',
+        hour: '0',
+        minite: '0',
+        second: '0',
+      };
+
+      // 计算显示结果
+      var resultWrapper = document.getElementById('result-wrapper'); // 容器
+      var showResult = function () {
+        // 拼接选择项，创建Date对象 
+        var sDate = currentDate.year + '-' + currentDate.month + '-' + currentDate.day + ' '
+          + currentDate.hour + ':' + currentDate.minite + ':' + currentDate.second;
+        var cDate = new Date(sDate);
+
+        // ··· 计算天时分秒相差值 ···
+        // 当前时间戳
+        var cNow = new Date();
+        // 用于计算相差的变量
+        var diff = cNow.getTime() / 1000 - cDate.getTime() / 1000;
+        // 文案
+        var connetText = diff > 0 ? ' 已经过去 ' : ' 还有 ';
+        // 取正值
+        if (diff < 0) diff = Math.abs(diff);
+        // 开始计算
+        var diffDay = parseInt(diff / 86400, 10); // 一天86400秒
+        diff = diff % 86400;
+        var diffHours = parseInt(diff / 3600, 10); // 一小时 3600 秒
+        diff = diff % 3600;
+        var diffMinite = parseInt(diff / 60, 10); // 一分钟 60 秒
+        diff = diff % 60;
+        var diffSecond = parseInt(diff % 60, 10);
+        // 拼接输出
+        resultWrapper.innerHTML = '' + dayFormat(new Date(cDate), 'YYYY年M+月D+日星期ww HH:mm:ss')
+          + connetText + diffDay + ' 天 ' + diffHours + ' 小时 ' + diffMinite + ' 分 ' + diffSecond + ' 秒';
+      }
+
       // ..生成html（手动写html太麻烦）..
-      var html = '<option value="num">num</option>'; // 模版
-      var init = function(day) {
+      var daySelect = document.querySelector('#day-select');
+      var htmlTemp = '<option value="num">num</option>'; // 模版
+      var init = function (day) {
         // 配置时分秒选项
-        var timeMax = 60; // 分秒最大值
+        var timeMax = 59; // 分秒最大值
         var dayMax = 31; // 日最大值，按一月算
-        var hourMax = 24; // 时最大值
+        var hourMax = 23; // 时最大值
         var options = [];
         var optionsDay = [];
         var optionsHour = [];
-        for (var i = 0; i < timeMax; i ++) {
-          options.push(html.replace(/num/g, i));
-          if (i !== 0 && i < dayMax) optionsDay.push(html.replace(/num/g, i));
-          if (i < hourMax) optionsHour.push(html.replace(/num/g, fillNum(i)));
+        for (var i = 0; i <= timeMax; i++) {
+          html = htmlTemp.replace(/num/g, i)
+          options.push(html);
+          if (i !== 0 && i <= dayMax) optionsDay.push(html);
+          if (i <= hourMax) optionsHour.push(html);
         }
         daySelect.innerHTML = optionsDay.join('');
         document.getElementById('hour-select').innerHTML = optionsHour.join('');
         document.getElementById('minite-select').innerHTML = options.join('');
         document.getElementById('second-select').innerHTML = options.join('');
+
+        // 计算结果
+        showResult();
       }
       init();
 
-      // 日选项配置
-      var setHourOptions = function(num) {
+      // 日选项配置, 传参月份天数和当前选中天数
+      var setDayOptions = function (num, day) {
         var options = [];
-        for (var i = 1; i < num; i ++) {
-          options.push(html.replace(/num/g, i));
+        for (var i = 1; i <= num; i++) {
+          options.push(htmlTemp.replace(/num/g, i));
         }
-        daySelect.innerHTML = optionsDay.join('');
+        daySelect.innerHTML = options.join('');
+
+        // 重建DOM后会丢失原有选中的值。需处理
+        var oLength = options.length;
+        // 大于现有天数，设为最后一天
+        if (Number(day) > oLength) {
+          currentDate.day = daySelect.value = String(oLength);
+        } else {
+          daySelect.value = day;
+        }
       }
+
+      // 监听用户选择事件并处理
       var selects = document.querySelectorAll('select');
-      for (var i = 0; i < selects.length; i ++) {
-        selects[i].addEventListener('change', function(e) {
-          console.log(e.target.id)
+      var dayConf = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]; // 天数配置，二月需判断闰年计算
+      var lastDay = 31; // 上一次选择的月份的天数，减少不必要的DOM操作
+      for (var i = 0; i < selects.length; i++) {
+        selects[i].addEventListener('change', function (e) {
+          var target = e.target;
+          // 处理新的值
+          var type = target.id.split('-')[0];
+          var value = target.value;
+          currentDate[type] = value;
+
+          // 非修改年/月直接输出新结果
+          if (!/month|year/.test(type)) return showResult();
+
+          // 年份修改的话，非2月直接输出新结果
+          if (type === 'year' && currentDate.month !== '2') return showResult();
+
+          // 计算重设天数选项
+          var cYear = currentDate.year;
+          var cMonth = currentDate.Month;
+
+          var dayL = 0; // 新的天数
+          if (type === 'month' && cMonth !== '2') {
+            dayL = dayConf[value - 1];
+          } else {
+            // 二月根据是否闰年计算天数, 能被4/400整除
+            dayL = !(cYear % 4) || !(cYear % 400) ? 29 : 28;
+          }
+          // 和上一次选择的月份天数一样不处理DOM
+          if (dayL === lastDay) return showResult();
+
+          // 存储新的天数，设置选项输出结果
+          lastDay = dayL;
+          setDayOptions(dayL, currentDate.day);
+          showResult();
         })
       }
     </script>
