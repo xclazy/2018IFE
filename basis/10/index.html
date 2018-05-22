@@ -193,6 +193,7 @@
       };
 
       // 计算显示结果
+      var timeout2 = null; // 定时器存储
       var resultWrapper = document.getElementById('result-wrapper');
       var showResult = function () {
         // 拼接选择项，创建Date对象 
@@ -218,6 +219,9 @@
         // 拼接输出
         resultWrapper.innerHTML = '' + dayFormat(new Date(cDate), 'YYYY年M+月D+日星期ww HH:mm:ss')
           + connetText + diffDay + ' 天 ' + diffHours + ' 小时 ' + diffMinite + ' 分 ' + diffSecond + ' 秒';
+        
+        // 自循环
+        timeout2 = setTimeout(showResult, 1000);
       }
 
       // ..生成html（手动写html太麻烦）..
@@ -271,6 +275,9 @@
       var lastDay = 31; // 上一次选择的月份的天数，减少不必要的DOM操作
       for (var i = 0; i < selects.length; i++) {
         selects[i].addEventListener('change', function (e) {
+
+          if (timeout2) window.clearTimeout(timeout2); // 清除定时器
+
           var target = e.target;
           // 根据改变的select 处理新的值
           var type = target.id.split('-')[0];
@@ -300,7 +307,7 @@
           // 存储新的天数，设置选项输出结果
           lastDay = dayL;
           setDayOptions(dayL, currentDate.day);
-          showResult();
+          return showResult();
         })
       }
     </script>
