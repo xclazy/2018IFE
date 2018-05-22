@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 20px;
+    }
+    #email-input {
+      width: 300px;
+      padding: 8px;
+      /* line-height: 32px; */
+      border: 1px solid #d9d9d9;
+      outline: none;
+      box-sizing: border-box;
+    }
+    #email-sug-wrapper {
+      width: 300px;
+      padding: 0;
+      margin-top: -1px;
+      font-size: 14px;
+      border: 1px solid #d9d9d9;
+      color: #aaa;
+      box-sizing: border-box;
+    }
+    #email-sug-wrapper li {
+      padding: 8px;
+      list-style: none;
+    }
+    #email-sug-wrapper li:first-child {
+      background-color: #fec4cf;
+    }
+    #email-sug-wrapper li:hover {
+      background-color: #bde0e9;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <input id="email-input" type="text">
+    <ul id="email-sug-wrapper" class="email-sug">
+    </ul>
+  </div>
+  <script>
+    // 邮箱后缀List参考
+    var postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
+    // 监听用户输入并处理时间
+    document.getElementById('email-input').addEventListener('input', function() {
+      var inputVal = getUserInput(this);
+      buildTipsList(inputVal); 
+    })
+    
+    // 获取用户输入内容并trim后返回
+    var getUserInput = function(e) {
+      var value = e.value;
+      console.log(value)
+      if (!value) return ''; // 空字符串直接返回
+      // 截取并返回字符串
+      return value.trim();
+    }
+  </script>
+</body>
+
+</html>
