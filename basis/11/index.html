@@ -63,6 +63,23 @@
       // 截取并返回字符串
       return value.trim();
     }
+
+    var listBox = document.getElementById('email-sug-wrapper');
+    var buildTipsList = function() {
+
+    }
+    // 判断提示列表是否显示
+    var listHandler = function(value) {
+      if (value) return showList();
+      hideList();
+    }
+    // 显示隐藏提示列表
+    var showList = function() {
+      listBox.style.display = 'block';
+    }
+    var hideList = function() {
+      listBox.style.display = 'none';
+    }
   </script>
 </body>
 
