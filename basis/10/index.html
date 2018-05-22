@@ -134,7 +134,7 @@
       var clock1 = document.getElementById('clock1');
       var clock2 = document.getElementById('clock2');
       var format1 = clock1.dataset.format; // 格式写在标签内
-      var format2 = clock2.dataset.format; // 格式写在标签内
+      var format2 = clock2.dataset.format;
 
       var countdown = function () {
         var day = new Date();
@@ -193,7 +193,7 @@
       };
 
       // 计算显示结果
-      var resultWrapper = document.getElementById('result-wrapper'); // 容器
+      var resultWrapper = document.getElementById('result-wrapper');
       var showResult = function () {
         // 拼接选择项，创建Date对象 
         var sDate = currentDate.year + '-' + currentDate.month + '-' + currentDate.day + ' '
@@ -201,15 +201,12 @@
         var cDate = new Date(sDate);
 
         // ··· 计算天时分秒相差值 ···
-        // 当前时间戳
         var cNow = new Date();
-        // 用于计算相差的变量
         var diff = cNow.getTime() / 1000 - cDate.getTime() / 1000;
-        // 文案
-        var connetText = diff > 0 ? ' 已经过去 ' : ' 还有 ';
-        // 取正值
+        
+        var connetText = diff > 0 ? ' 已经过去 ' : ' 还有 '; // 拼接文案
+
         if (diff < 0) diff = Math.abs(diff);
-        // 开始计算
         var diffDay = parseInt(diff / 86400, 10); // 一天86400秒
         diff = diff % 86400;
         var diffHours = parseInt(diff / 3600, 10); // 一小时 3600 秒
@@ -217,6 +214,7 @@
         var diffMinite = parseInt(diff / 60, 10); // 一分钟 60 秒
         diff = diff % 60;
         var diffSecond = parseInt(diff % 60, 10);
+
         // 拼接输出
         resultWrapper.innerHTML = '' + dayFormat(new Date(cDate), 'YYYY年M+月D+日星期ww HH:mm:ss')
           + connetText + diffDay + ' 天 ' + diffHours + ' 小时 ' + diffMinite + ' 分 ' + diffSecond + ' 秒';
@@ -224,9 +222,9 @@
 
       // ..生成html（手动写html太麻烦）..
       var daySelect = document.querySelector('#day-select');
-      var htmlTemp = '<option value="num">num</option>'; // 模版
+       // options模版
+      var htmlTemp = '<option value="num">num</option>';
       var init = function (day) {
-        // 配置时分秒选项
         var timeMax = 59; // 分秒最大值
         var dayMax = 31; // 日最大值，按一月算
         var hourMax = 23; // 时最大值
@@ -269,12 +267,12 @@
 
       // 监听用户选择事件并处理
       var selects = document.querySelectorAll('select');
-      var dayConf = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]; // 天数配置，二月需判断闰年计算
+      var dayConf = [31, null, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]; // 天数配置，二月需判断闰年计算
       var lastDay = 31; // 上一次选择的月份的天数，减少不必要的DOM操作
       for (var i = 0; i < selects.length; i++) {
         selects[i].addEventListener('change', function (e) {
           var target = e.target;
-          // 处理新的值
+          // 根据改变的select 处理新的值
           var type = target.id.split('-')[0];
           var value = target.value;
           currentDate[type] = value;
