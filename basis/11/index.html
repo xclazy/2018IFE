@@ -30,8 +30,11 @@
     #email-sug-wrapper li {
       padding: 8px;
       list-style: none;
+      cursor: pointer;
+      /* overflow: hidden; */
+      word-wrap: break-word;
     }
-    #email-sug-wrapper li:first-child {
+    #email-sug-wrapper li.select {
       background-color: #fec4cf;
     }
     #email-sug-wrapper li:hover {
@@ -47,39 +50,161 @@
     </ul>
   </div>
   <script>
-    // 邮箱后缀List参考
-    var postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
-    // 监听用户输入并处理事件
-    document.getElementById('email-input').addEventListener('input', function() {
-      var inputVal = getUserInput(this);
-      buildTipsList(inputVal); 
-    })
-    
-    // 获取用户输入内容并trim后返回
-    var getUserInput = function(e) {
-      var value = e.value;
-      console.log(value)
-      if (!value) return ''; // 空字符串直接返回
-      // 截取并返回字符串
-      return value.trim();
-    }
+    (function() {
+      var inputBox = document.getElementById('email-input');
+      var listBox = document.getElementById('email-sug-wrapper');
+      // 输入框默认获取焦点
+      inputBox.focus();
 
-    var listBox = document.getElementById('email-sug-wrapper');
-    var buildTipsList = function() {
+      // -------------------------------------------
+      // 监听用户按键
+      var nowSelectTipIndex = 0;
+      inputBox.addEventListener('keydown', function(e) {
+        var keyCode = e.keyCode;
+        if (keyCode === 27) {
+          e.preventDefault();
+          // 按下Esc键(27) 全选输入框内容
+          inputBox.select();
+        } else if (/^13|38|40$/.test(keyCode)) {
+          e.preventDefault();
+          var tipListItem = listBox.getElementsByTagName('li');
+          // 避免nowSelectTipIndex有误，若没有选中项默认列表第一项
+          var currentSelectItem = tipListItem[nowSelectTipIndex] || tipListItem[0];
+          // 按下回车键(13) 将选中内容显示到输入框内
+          if (keyCode === 13) return choiceTip(currentSelectItem.innerHTML);
 
-    }
-    // 判断提示列表是否显示
-    var listHandler = function(value) {
-      if (value) return showList();
-      hideList();
-    }
-    // 显示隐藏提示列表
-    var showList = function() {
-      listBox.style.display = 'block';
-    }
-    var hideList = function() {
-      listBox.style.display = 'none';
-    }
+          // 上(38)下(40)箭头键切换选中项
+          // 移除上一个选中项选中状态
+          tipListItem[nowSelectTipIndex].classList.remove('select');
+          // 计算新的选中项下标
+          if (keyCode === 38) {
+            nowSelectTipIndex = nowSelectTipIndex <= 0 ? tipListItem.length - 1 : nowSelectTipIndex - 1;
+          } else {
+            nowSelectTipIndex = nowSelectTipIndex >= tipListItem.length - 1 ? 0 : nowSelectTipIndex + 1;
+          }
+          // 新选中项添加样式
+          tipListItem[nowSelectTipIndex].classList.add('select');
+        } 
+      })
+
+      // 重置选中状态
+      var resetSelectTipIndex = function() {
+        nowSelectTipIndex = 0;
+      }
+
+      // --------------------------------------------
+      // 监听用户输入
+      inputBox.addEventListener('input', function() {
+        var inputVal = getUserInput(this);
+        listHandler(inputVal);
+        buildTipList(inputVal); 
+      })
+      
+      // 获取用户输入内容并trim后返回
+      var getUserInput = function(e) {
+        var inputVal = e.value;
+        if (!inputVal) return ''; // 空字符串直接返回
+        // 截取并返回字符串
+        return inputVal.trim();
+      }
+
+      // 构建生成提示列表
+      var buildTipList = function(inputVal) {
+        if (!inputVal) return false;
+        // 以@拆分输入内容用于筛选及拼接
+        var str = inputVal.split('@');
+        // 筛选后缀数组
+        var flist = filterList(str[1]);
+        // 重置选中状态
+        resetSelectTipIndex();
+        // 构建html
+        listBox.innerHTML = buildHtml(str[0], flist);
+      }
+      
+      // 邮箱后缀List
+      var postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
+
+      // 筛选后缀数组
+      var filterList = function(str) {
+        // 不存在str直接返回所有后缀
+        if (!str) return postfixList;
+        var l = postfixList.length;
+        var strl = str.length;
+        var result = [];
+        // 遍历匹配符合要求的后缀
+        for (var i = 0; i < l; i ++) {
+          var val = postfixList[i];
+          // 挨个字符对比
+          for (var j = 0; j < strl; j ++) {
+            if (val[j] !== str[j]) break;
+            // 匹配最后一个字符成功后添加符合项
+            if (j === strl - 1) result.push(postfixList[i]); 
+          }
+        }
+        // 匹配不成功返回所有后缀
+        if (!result.length) return postfixList;
+        return result;
+      }
+
+      // 拼接提示列表的html
+      var buildHtml = function(str, list) {
+        var l = list.length;
+        var html = [];
+        for (var i = 0; i < l; i ++) {
+          // 默认第一项选中状态
+          var li = (i === nowSelectTipIndex ? '<li class="select">' : '<li>') + htmlEncode(str + '@' + list[i]) + '</li>';
+          html.push(li);
+        }
+        return html.join('');
+      }
+
+      // 判断提示列表是否显示
+      var listHandler = function(inputVal) {
+        if (inputVal) return showList();
+        hideList();
+      }
+
+      // 显示提示列表
+      var showList = function() {
+        listBox.style.display = 'block';
+      }
+
+      // 隐藏提示列表
+      var hideList = function() {
+        listBox.style.display = 'none';
+      }
+
+      // html转码
+      var htmlEncode = function(html) {
+        var temp = document.createElement('div');
+        temp.textContent != undefined ? temp.textContent = html : temp.innerText = html;
+        return temp.innerHTML;
+      }
+
+      // html解码
+      var htmlDecode = function(html) {
+        var temp = document.createElement('div');
+        temp.innerHTML = html;
+        return temp.innerText || temp.textContent;
+      }
+
+      //----------------------------------------------
+      // 监听用户点击提示框
+      listBox.addEventListener('click', function(e) {
+        // 点击后将选中的提示显示到input内并隐藏提示列表
+        var target = e.target;
+        if (target.nodeName.toLowerCase() !== 'li') return false;
+        choiceTip(target.innerHTML);
+      })
+
+      // 用户选择提示并显示在input
+      var choiceTip = function(val) {
+        inputBox.value = htmlDecode(val);
+        hideList();
+        inputBox.focus();
+      }
+
+    })()
   </script>
 </body>
 

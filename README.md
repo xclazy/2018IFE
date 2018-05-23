@@ -45,6 +45,10 @@
 
     <a href="http://ife.baidu.com/course/detail/id/51" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/basis/10/" target="_blank">作业</a>
     
+* #### 练习十一：给爱的人发个邮件吧
+
+    <a href="http://ife.baidu.com/course/detail/id/52" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/basis/11/" target="_blank">作业</a>
+    
 ------------------------
 
 ### 设计师学院
