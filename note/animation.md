@@ -22,28 +22,37 @@ AE安装bodymovin插件 https://blog.csdn.net/jhl122/article/details/56665374
   如 [Animate.css](https://daneden.github.io/animate.css/) 
   [Velocity.js](http://www.mrfront.com/docs/velocity.js/index.html)
 
-  * 有限制/不够灵活
-  * 学习成本
+  * 简单易用
+  * 动效有限制
 
-* Css/Js/svg
+* 纯代码Css/Js/svg
+
   [demo](https://codepen.io/Alireza29675/pen/KwgwMy)
 
+  * 占用空间小
   * 复杂图形代码量很大
-  * js会产生丢帧卡顿
-  * 兼容性问题
+  * 需要处理兼容性问题
 
 * Gif 
+
   * 不便交互
-  * 占用空间较大
   * 不能按比例放大匹配大和高密度屏幕
 
 * 帧动画 
 
+  生成工具 [gka](https://gka.js.org)
+
   * 占用空间大
   * 不能按比例放大匹配大和高密度屏幕
 
-gka https://gka.js.org
-4. 开源库 如Lottie、Keyframe，将 AE 导出的动画资源直接在项目中应用。
+* 开源库 
+  
+  如 `Lottie` `Keyframe`，将AE导出的动画资源直接在项目中应用。
+
+  * 动效的自由度大
+  * 提高了开发效率及减轻工作量
+  * 部分AE属性不适用，需设计配合
+  * 库占用空间较大
 
 
 lottie
