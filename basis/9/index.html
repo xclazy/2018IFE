@@ -211,19 +211,33 @@
               showResult2('slice获取：' + text25);
               break;
             case '6':
-              // 创建两个DOM元素，外层p用来限制宽度，内层span用来存放文本计算行数
-              var p = document.createElement('p');
-              var span = document.createElement('span');
-              // 将p的宽度设为和目标textarea等宽并不可见
-              p.style.visibility = 'hidden';
-              p.style.width = getComputedStyle(textarea).width;
-              // 插入到页面上，不插入无法计算行数
-              p.append(span);
-              document.body.append(p);
-              // 将需计算行数的字符串插入到span，并处理换行
-              span.innerHTML = textareaVal.replace(/\r?\n/g, '<br>');
+              // 先判断页面上是否已经创建过容器
+              var parent = document.getElementById('hiddenText');
+              if (!parent) {
+                // 创建两个DOM元素，外层p用来限制宽度，内层span用来存放文本计算行数
+                parent = document.createElement('p');
+                child = document.createElement('span');
+                parent.id = 'hiddenText';
+                // 将p的宽度设为和目标textarea等宽并不可见
+                parent.style.visibility = 'hidden';
+                parent.style.width = getComputedStyle(textarea).width;
+                parent.style.height = getComputedStyle(textarea).height;
+                parent.style.font = getComputedStyle(textarea).font;
+                // 插入到页面上，不插入无法计算行数
+                parent.append(child);
+                document.body.append(parent);
+              } else {
+                var child = parent.getElementsByTagName('span')[0];
+              }
+              // 将需计算行数的字符串处理换行
+              html = textareaVal.replace(/\r?\n/g, '<br>');
+              // 插入到span内
+              child.innerHTML = html;
+              // getClientRects()方法内换行会被单独计算成一行
+              var rnLength = html.split('<br>').length - 1;
+              console.log(rnLength)
               // span.getClientRects()获取行数，注：只有inline元素才可正确计算
-              showResult2('输入框行数：' + span.getClientRects().length);
+              showResult2('输入框行数：' + (child.getClientRects().length - rnLength));
               break;
             case '7':
               var checked27 = checkNumber2();
