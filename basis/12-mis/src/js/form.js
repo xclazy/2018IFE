@@ -5,8 +5,23 @@
 // 表单配置
 const formConfig = {
   region: {
-    name: '地区'
-  }
+    name: '地区',
+    options: [
+      {
+        value: '华东',
+        key: '1',
+      },
+      {
+        value: '华南',
+        key: '2',
+      },
+      {
+        value: '华北',
+        key: '3',
+      },
+    ]
+  },
+  
 }
 
 // 当前表单值
