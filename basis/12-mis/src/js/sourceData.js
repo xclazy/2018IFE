@@ -1,3 +1,4 @@
+// 假数据
 let sourceData = [{
   product: "手机",
   region: "华东",
