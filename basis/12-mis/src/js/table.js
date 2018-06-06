@@ -31,11 +31,10 @@ const init = () => {
   attrLength = attr.length;
   tableTpl = tableTpl.replace('{{th}}', th.join(''));
 }
-init();
 
 // 生成html
 const buildHtml = (data) => {
-  if (!data || !data.length) return false;
+  if (!data || !data.length) return '';
   const l = data.length;
   let table = tableTpl;
   const tr = [];
@@ -57,13 +56,8 @@ const buildHtml = (data) => {
   return table.replace('{{tr}}', tr.join(''));
 };
 
-// 渲染html到页面上
-const renderTable = (html, container) => {
-  if (!html || !container) return false;
-  container.innerHTML = html;
-}
 
 export {
+  init,
   buildHtml,
-  renderTable,
 };
