@@ -25,7 +25,6 @@ const init = (form) => {
 }
 // 生成表单某项html 
 const buildFormItem = (conf, name) => {
-  console.log(conf)
   if (!conf) return false;
   const html = [
     titleTpl.replace('{{title}}', conf.title),

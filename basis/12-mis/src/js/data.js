@@ -26,7 +26,29 @@ const filterData = (json) => {
   }
   return data;
 }
-
+// 数据分组
+const GroupByKey = (data, key) => {
+  if (!data || !key) return data;
+  const length = data.length;
+  const newArr = {};
+  const values = []; // 用于分组，避免出现中文
+  for (let i = 0; i < length; i += 1) {
+    if (!data[i]) continue;
+    // 以key的数据值为基准划分数组
+    const keyValue = data[i][key];
+    let j = values.indexOf(keyValue); // 找到分组依据对应的唯一标志
+    // 每个新组需要赋值
+    if (j === -1) {
+      values.push(keyValue);
+      j = values.length - 1;
+      newArr[j] = [];
+    }
+    // 将数据添加到对应组
+    newArr[j].push(data[i]); 
+  }
+  return newArr
+}
 export {
   filterData,
+  GroupByKey,
 }

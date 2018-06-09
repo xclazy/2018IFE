@@ -49,6 +49,10 @@
 
     <a href="http://ife.baidu.com/course/detail/id/52" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/basis/11/" target="_blank">作业</a>
     
+* #### 练习十二：我是精明的小卖家(MIS系统)
+
+    <a href="http://ife.baidu.com/course/detail/id/53" target="_blank">课程</a> <a href="https://xclazy.github.io/2018IFE/basis/12-mis/dist/index.html" target="_blank">作业</a>
+    
 ------------------------
 
 ### 设计师学院
