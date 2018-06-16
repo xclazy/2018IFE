@@ -10,6 +10,12 @@
     td {
       padding: 4px;
     }
+    #chart-wrapper svg,
+    #chart-wrapper canvas {
+      width: 400px;
+      height: 200px;
+      padding: 20px;
+    }
   </style>
 </head>
 <body>
@@ -21,13 +27,13 @@
     </form>
     <!-- 表单选项 end -->
     <div class="main">
+      <!-- 图表区域 -->
+      <div id="chart-wrapper"></div>
+      <!-- 图表区域 end -->
       <!-- 表格区域 -->
       <div id="table-wrapper">
       </div>
       <!-- 表格区域 end -->
-      <!-- 图表区域 -->
-      <div id="chart-wrapper"></div>
-      <!-- 图表区域 end -->
     </div>
   </div>
   <script src="./app.js"></script>
