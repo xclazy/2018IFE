@@ -33,8 +33,19 @@ class data {
   getData() {
     return this.currentData;
   }
+  // 获取当前选择数据的某个值的列表
+  getValueList(key) {
+    if (!key) return false;
+    const data = this.currentData;
+    const length = data.length;
+    const arr = [];
+    for (let i = 0; i < length; i +=1) {
+      arr.push(data[i][key]);
+    }
+    return arr;
+  }
   // 数据分组
-  GroupByKey(key) {
+  groupByKey(key) {
     data = this.currentData;
     if (!key) return data;
     const length = data.length;

@@ -7,14 +7,17 @@
 const tableTpl = '<tr>{{th}}</tr>{{tr}}';
 let theadTpl = '<tr>{{variable}}{{fixed}}</tr>';
 const thTpl = '<th>{{name}}</th>';
-const trTpl = '<tr>{{td}}</tr>';
+const trTpl = '<tr data-index="{{index}}">{{td}}</tr>';
 const tdTpl = '<td>{{value}}</td>';
 
 class table {
   constructor(data, container, formConfig) {
     if (!container) return false;
-    container.innerHTML = '<table id="table" border=1></table>';
     this.table = document.getElementById('table');
+    if (!this.table) {
+      container.innerHTML = '<table id="table" border=1></table>';
+      this.table = document.getElementById('table');
+    }
 
     // 用于控制除月份外表格数据显示顺序
     this.attr = [];
@@ -68,6 +71,7 @@ class table {
     const buildHtml = this.buildHtml;
     const attr = this.attr;
     // 遍历数据
+    let trIndex = 0;
     for (const i in data) {
       const items = data[i];
       const l = items.length;
@@ -84,7 +88,8 @@ class table {
         } else {
           td[0] = '';
         }
-        tr.push(buildHtml(trTpl, '{{td}}', td.join('')));
+        tr.push(buildHtml(buildHtml(trTpl, '{{index}}', trIndex), '{{td}}', td.join('')));
+        trIndex += 1;
       }
     }
     const tpl = buildHtml(tableTpl, '{{th}}', this.buildTheadTpl(key));

@@ -42,18 +42,35 @@ document.getElementById('option-form').addEventListener('change', (e) => {
   const soleKey = regionLength === 1 && productLength > 1 ? 'region' : 'product';
   // 根据新的表单值筛选符合的数据
   oData.filterData(oForm.getForm());
-  const result = oData.GroupByKey(soleKey);
+  const result = oData.groupByKey(soleKey);
   // 渲染表格/图表
   oTable.setData(result, soleKey);
-  oChart.setData(result[0].sale);
+  oChart.setData(oData.getValueList('sale'));
 
 })
 
+// 监听表格鼠标事件
+document.getElementById('table').addEventListener('mouseover', (e) => {
+  let currentIndex = null;
+  const target = e.target;
+  const tagName = target.tagName.toUpperCase();
+  if (tagName === 'TD') {
+    currentIndex = target.parentNode.dataset['index'];
+  }
+  if (tagName === 'TR') {
+    currentIndex = target.dataset['index'];
+  }
+  if (currentIndex === null) return false;
+  oChart.setData(oData.getData()[currentIndex].sale);
+})
+document.getElementById('table').addEventListener('mouseleave', (e) => {
+  oChart.setData(oData.getValueList('sale'));
+})
 // 初始化页面, 默认显示全部数据
 const init = () => {
   // 初始化各区域显示的
   oData.filterData();
-  oTable.setData(oData.GroupByKey('product'))
-  oChart.setData(oData.getData()[0].sale);
+  oTable.setData(oData.groupByKey('product'));
+  oChart.setData(oData.getValueList('sale'));
 }
 init();
