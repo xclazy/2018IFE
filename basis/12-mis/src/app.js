@@ -1,11 +1,13 @@
-import Form from './js/form.js';
-import Data from './js/data.js';
-import Table from './js/table.js';
-import Chart from './js/chart.js';
+import Form from './assets/js/form.js';
+import Data from './assets/js/data.js';
+import Table from './assets/js/table.js';
+import Chart from './assets/js/chart.js';
 // 表单配置
-import formConfig from './js/conf/formConfig.js';
+import formConfig from './assets/js/conf/formConfig.js';
  // 假数据
-import sourceData from './js/conf/sourceData.js';
+import sourceData from './assets/js/conf/sourceData.js';
+// 样式
+import './assets/css/style.less';
 
 // 图表创建
 const oChart = new Chart(null, document.getElementById('chart-wrapper'));
@@ -46,26 +48,84 @@ document.getElementById('option-form').addEventListener('change', (e) => {
   // 渲染表格/图表
   oTable.setData(result, soleKey);
   oChart.setData(oData.getValueList('sale'));
-
 })
 
 // 监听表格鼠标事件
+// 鼠标移动到某条数据上图表显示单条数据
 document.getElementById('table').addEventListener('mouseover', (e) => {
   let currentIndex = null;
   const target = e.target;
-  const tagName = target.tagName.toUpperCase();
-  if (tagName === 'TD') {
-    currentIndex = target.parentNode.dataset['index'];
-  }
-  if (tagName === 'TR') {
-    currentIndex = target.dataset['index'];
-  }
-  if (currentIndex === null) return false;
+  // 非tr内元素不执行其他逻辑
+  if (!/SPAN|P|EM|TD/.test(target.tagName.toUpperCase())) return false;
+  // 找到存储index的tr节点
+  let trNode = null;
+  let currentNode = target;
+  do {
+    const tagName = currentNode.tagName.toUpperCase();
+    if (tagName === 'TR') trNode = currentNode;
+    currentNode = currentNode.parentNode;
+  } while (!trNode);
+  currentIndex = trNode.dataset['index'];
+  // 没找到不更新图表
+  if (/null|undefined/.test(currentIndex)) return false;
   oChart.setData(oData.getData()[currentIndex].sale);
 })
+// document.getElementById('table').addEventListener('mouseout', (e) => {
+//   const target = e.target;
+//   const tagName = target.tagName.toUpperCase();
+// })
+// 鼠标移开表格时图表默认显示全部数据
 document.getElementById('table').addEventListener('mouseleave', (e) => {
   oChart.setData(oData.getValueList('sale'));
 })
+// 表格点击触发编辑相关事件
+document.addEventListener('click', (e) => {
+  const target = e.target;
+  // 页面被点击，触发事件
+  oTable.trigger(target, () => {
+    saveUpdate(target)
+  });
+})
+// 监听键盘时间
+document.addEventListener('keydown', (e) => {
+  const keyCode = e.keyCode;
+  // 按下Esc(27)取消修改
+  if (keyCode === 27) {
+    e.preventDefault();
+    oTable.cancelUpdate();
+  } else if (keyCode === 13) {
+    // 按下回车键(13)保存修改
+    e.preventDefault();
+    console.log(2323)
+    saveUpdate();
+    oTable.cancelUpdate();
+  }
+})
+// 保存修改数据， 跨了多个模块，所以放这入口文件
+const saveUpdate = () => {
+  const activeNode = document.querySelector('p.active');
+  // 保存需验证数据是
+  const input = activeNode.querySelector('input');
+  let value = input.value;
+  if (!Number(value) && value !== '0') return alert('请输入正确数字');
+  value = Number(value);
+  activeNode.querySelector('span').innerHTML = value;
+  // 找到记录了数据index的tr节点, 记录单元格key的td
+  let trNode = null;
+  let tdNode = null;
+  let currentNode = activeNode;
+  do {
+    const tagName = currentNode.tagName.toUpperCase();
+    if (tagName === 'TR') trNode = currentNode;
+    if (tagName === 'TD') tdNode = currentNode;
+    currentNode = currentNode.parentNode;
+  } while (!trNode);
+
+  // 保存新数据后更新图表
+  oData.changeData(trNode.dataset['index'], tdNode.dataset['key'], value, (data) => {
+    oChart.setData(data.sale);
+  });
+}
 // 初始化页面, 默认显示全部数据
 const init = () => {
   // 初始化各区域显示的

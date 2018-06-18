@@ -14,7 +14,7 @@ class chart {
     // 坐标轴的偏移，两边留白
     this.axisPadding = 25;
     // Y轴最大高度
-    this.axisMaxY = this.height - this.axisPadding * 1.5;
+    this.yMaxHeight = this.height - this.axisPadding * 1.5;
     // X轴最大宽度
     this.axisMaxX = this.width - this.axisPadding;
     // 柱子间隔
@@ -62,7 +62,7 @@ class chart {
     }
 
     // 计算坐标轴
-    const maxY = this.axisMaxY;
+    const maxHeight = this.yMaxHeight;
     const arrMax = this.arrMax;
     const width = this.barPadding + this.barWidth; // 每一块数据的距离
     const padding = this.axisPadding;
@@ -78,7 +78,7 @@ class chart {
         const arr = []
         for (let j = 0; j < childLength; j += 1) {
           // 数据高度
-          const y = maxY - (child[j] / arrMax) * (maxY - padding / 2);
+          const y = (maxHeight + padding * .5) - ((child[j] / arrMax) * maxHeight);
           const x = axisTextX[j];
           arr.push({
             x,
@@ -89,7 +89,7 @@ class chart {
         this.coordinate.push(arr);
       } else {
         // 数据高度
-        const y = maxY - (data[i] / arrMax) * (maxY - padding / 2);
+        const y = (maxHeight + padding * .5) - ((data[i] / arrMax) * maxHeight);
         const x = axisTextX[i];
         this.coordinate.push({
           x,
@@ -99,57 +99,38 @@ class chart {
     }
     // 渲染svg
     this.buildSvg(data);
-    this.clearCanvas();
-    this.buildCanvasLine(this.coordinate, data);
+    this.buildCanvas(data);
   }
   // canvas坐标轴/初始化
   canvasInit() {
     if (!this.canvas.getContext) return false;
     const ctx = canvas.getContext('2d');
-    const padding = this.axisPadding;
-    const maxY = this.axisMaxY + padding / 2;
-    const maxX = this.width;
-    
-    ctx.strokeStyle = this.colorAxis;
-    ctx.beginPath();
-    // Y轴
-    ctx.moveTo(padding, maxY);
-    ctx.lineTo(padding, 0);
-    // X轴
-    ctx.moveTo(padding, maxY);
-    ctx.lineTo(maxX, maxY);
-    ctx.stroke();
-    ctx.closePath();
 
     ctx.font = `${this.fontSize}px`;
     ctx.lineWidth = 2;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
-    ctx.fillText('0', padding / 2, maxY);
-    // x轴坐标文字
-    const axisTextX = this.axisTextX;
-    const length = axisTextX.length;
-    for (let i = 0; i < length; i += 1) {
-      ctx.fillText(`${i + 1}月`, axisTextX[i], maxY);
-    }
-    ctx.strokeStyle = this.colorMain[0];
     ctx.fillStyle = this.colorMain[0];
+    ctx.strokeStyle = this.colorMain[0];
+  }
+  buildCanvas(data) {
+    this.clearCanvas();
+    this.buildCanvasAxis();
+    this.buildCanvasLine(data);
   }
   clearCanvas() {
     if (!this.canvas.getContext) return false;
     const ctx = canvas.getContext('2d');
 
     // 清空旧的
-    const padding = this.axisPadding;
-    ctx.clearRect(padding + 1, 0, this.axisMaxX, this.axisMaxY + padding / 2 - 1);
-    ctx.clearRect(0, 0, padding - 5, padding / 2 + this.fontSize);
+    ctx.clearRect(0, 0, this.width, this.height);
   }
   // 画canvas折线
-  buildCanvasLine(coordinate, arr, color) {
+  buildCanvasLine(arr) {
     if (!this.canvas.getContext) return false;
     const ctx = canvas.getContext('2d');
     const padding = this.axisPadding;
-
+    const coordinate = this.coordinate;
     const length = coordinate.length;
 
     // Y最大值
@@ -199,6 +180,36 @@ class chart {
     }
     ctx.restore();
   }
+  // 画canvas坐标轴 
+  buildCanvasAxis() {
+    if (!this.canvas.getContext) return false;
+    const ctx = canvas.getContext('2d');
+    const padding = this.axisPadding;
+    const maxHeight = this.yMaxHeight + padding / 2;
+    const maxX = this.width;
+    
+    ctx.save();
+    ctx.strokeStyle = this.colorAxis;
+    ctx.fillStyle = this.colorAxis;
+    ctx.beginPath();
+    // Y轴
+    ctx.moveTo(padding, maxHeight);
+    ctx.lineTo(padding, 0);
+    // X轴
+    ctx.moveTo(padding, maxHeight);
+    ctx.lineTo(maxX, maxHeight);
+    ctx.stroke();
+    ctx.closePath();
+    // x轴坐标文字
+    const axisTextX = this.axisTextX;
+    const length = axisTextX.length;
+    for (let i = 0; i < length; i += 1) {
+      ctx.fillText(`${i + 1}月`, axisTextX[i], maxHeight);
+    }
+    ctx.fillText('0', padding / 2, maxHeight);
+
+    ctx.restore();
+  }
   // 生成SVG
   buildSvg(data) {
     // 柱状图
@@ -209,7 +220,7 @@ class chart {
   }
   // 生成柱子
   buildSvgBar() {
-    const axisMaxY = this.axisMaxY;
+    const yMaxHeight = this.yMaxHeight;
     const barWidth = this.barWidth;
     const padding = this.axisPadding;
     const colorMain = this.colorMain[0];
@@ -225,10 +236,10 @@ class chart {
         const childLength = child.length;
         const childBarX = barWidth / length * i;
         for (let j = 0; j < childLength; j += 1) {
-          rect.push(`<rect x="${child[j].x + childBarX - barWidth / 2}" y="${child[j].y}" width="${barWidth / length}" height="${axisMaxY - child[j].y + padding / 2}" fill="${child[j].color || colorMain}"/>`);
+          rect.push(`<rect x="${child[j].x + childBarX - barWidth / 2}" y="${child[j].y}" width="${barWidth / length}" height="${yMaxHeight - child[j].y + padding / 2}" fill="${child[j].color || colorMain}"/>`);
         }
       } else {
-        rect.push(`<rect x="${coordinate[i].x - barWidth / 2}" y="${coordinate[i].y}" width="${barWidth}" height="${axisMaxY - coordinate[i].y + padding / 2}" fill="${coordinate[i].color || colorMain}"/>`);
+        rect.push(`<rect x="${coordinate[i].x - barWidth / 2}" y="${coordinate[i].y}" width="${barWidth}" height="${yMaxHeight - coordinate[i].y + padding / 2}" fill="${coordinate[i].color || colorMain}"/>`);
       }
     }
     return rect.join('');
@@ -237,16 +248,16 @@ class chart {
   buildSvgAxis() {
     const axis = [];
     const axisPadding = this.axisPadding;
-    const maxY = this.axisMaxY + axisPadding / 2;
+    const maxHeight = this.yMaxHeight + axisPadding / 2;
     const colorAxis = this.colorAxis;
     const width = this.width;
     const height = this.height;
     const fontSize = this.fontSize;
     const barPadding = this.barPadding;
     // x轴
-    axis.push(`<line x1="${axisPadding}" y1="${maxY}" x2="${width}" y2="${maxY}" stroke="${colorAxis}" stroke-width="1"/>`); 
+    axis.push(`<line x1="${axisPadding}" y1="${maxHeight}" x2="${width}" y2="${maxHeight}" stroke="${colorAxis}" stroke-width="1"/>`); 
     // y轴
-    axis.push(`<line x1="${axisPadding}" y1="${maxY}" x2="${axisPadding}" y2="0" stroke="${colorAxis}" stroke-width="1"/>`);
+    axis.push(`<line x1="${axisPadding}" y1="${maxHeight}" x2="${axisPadding}" y2="0" stroke="${colorAxis}" stroke-width="1"/>`);
     // 原点坐标
     axis.push(`<text x="${axisPadding}" y="${height - fontSize}" text-anchor="end" fill="${colorAxis}" style="font-size: ${fontSize}px">0</text>`);
     // y轴文字

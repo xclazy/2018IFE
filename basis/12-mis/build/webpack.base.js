@@ -14,10 +14,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.less$/,
         use: [
           'style-loader',
-          'css-loader'
+          'css-loader?-autoprefixer',
+          'less-loader'
         ]
       },
       {

@@ -5,8 +5,9 @@
 
 class data {
   constructor(data = []) {
-    this.data = data;
-    this.currentData = data;
+    // 优先读取本地存储的数据
+    this.data = this.getLocalstorage() || data;
+    this.currentData = this.data;
   }
   // 根据配置筛选数据 返回筛选的数据
   filterData(json) {
@@ -66,6 +67,46 @@ class data {
       newArr[j].push(data[i]); 
     }
     return newArr
+  }
+  // 修改某数据值
+  changeData(index, key, value, callback,d) {
+    if (key === undefined) return false;
+    const item = this.currentData[index];
+    if (!item) return false;
+    // 找到对应属性修改值
+    const keyArr = key.split('_');
+    const length = keyArr.length;
+    if (length === 1) {
+      // 没修改不继续执行逻辑
+      if (item[key] === value) return false;
+      item[key] = value;
+    } else {
+      let i = 0;
+      const loop = (v) => {
+        if (i === length - 1) {
+          // 没修改不继续执行逻辑
+          if (v[keyArr[i]] === value) return false;
+          v[keyArr[i]] = value;
+        } else {
+          i += 1;
+          loop(v[keyArr[i - 1]]);
+        }
+      }
+      loop(item);
+    }
+    this.saveLocalstorage();
+    if (callback) callback(item);
+  }
+  // 获取本地储存数据
+  getLocalstorage() {
+    if (!localStorage['IFE_Tomato_2018_31_38']) return false;
+    // 字符串转成对象
+    return JSON.parse(localStorage['IFE_Tomato_2018_31_38']);
+  }
+  // 将最新数据储存本地
+  saveLocalstorage() {
+    // 转成字符串后储存
+    localStorage['IFE_Tomato_2018_31_38'] = JSON.stringify(this.data);
   }
 }
 export default data;
