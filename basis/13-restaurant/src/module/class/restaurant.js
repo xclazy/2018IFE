@@ -2,7 +2,6 @@
 * 餐厅 
 * ES5
 */
-
 var Restaurant = function(config) {
   config = config || {};
   // 资金
@@ -30,19 +29,15 @@ Restaurant.prototype.fire = function(worker) {
   // 删除职员
   this.staff.splice(index, 1);
 }
-// 增加菜品
-Restaurant.prototype.addDish = function(dish) {
-  if (!dish || Object.prototype.toString.call(dish) !== '[object Object]') return false;
-  this.menu.push(dish);
-}
-// 删减菜品
-Restaurant.prototype.delDish = function(dish) {
-  // 验证参数有效性
-  if (!dish || Object.prototype.toString.call(dish) !== '[object Object]') return false;
-  const index = this.staff.indexOf(dish);
-  if (index < 0) return console.error('该菜品 不存在');
-  // 删除职员
-  this.menu.splice(index, 1);
-}
 
-module.exports = Restaurant;
+// 单例模式
+var createRestaurant = (function(config) {
+  var instance;
+  var init = function(config) {
+    if (!instance) instance = new Restaurant(config);
+    return instance;
+  }
+  return init(config);
+})
+
+module.exports = createRestaurant;
