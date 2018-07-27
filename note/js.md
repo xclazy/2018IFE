@@ -178,3 +178,147 @@
 
 #### 算法
 
+---------------------------
+
+#### 小技巧
+
+  * 使用对象结构模拟命名参数
+    
+    ```js
+    // 旧方法
+    function test(config) {
+      const a = config.a !== undefined ? config.a : 'Hi';
+      const b = config.b !== undefined ? config.b : 'Bye';
+      // ...
+      return a + ' ' + b;
+    }
+    test({a: 'what?', b: 'yes'}); // what? yes
+
+    // ES2015
+    const test = ({a = 'Hi', b = 'Bye'}) => {
+      return `${a} ${b}`;
+    }
+    test({a: 'what?'}); // what? Bye
+    test(); // Cannot destructure property `a` of 'undefined' or 'null'.
+
+    // 参数可选
+    const test = ({a = 'Hi', b = 'Bye'} = {}) => {
+      return `${a} ${b}`;
+    }
+    test({a: 'what?'}); // what? Bye
+    test(); // Hi Bye
+    ```
+  
+  * 使用对象解构将数组项赋值给变量
+
+    ```js
+    const area = '广东省,广州市,天河区,天源路,789号';
+    // 2/4为split后的数组下标 region/number为指定变量
+    const { 2: region, 4: number} = area.split(',');
+    const [prov] = area.split(',');
+
+    console.log(region, number); // 天河区 789号
+    console.log(prov); // 广东省
+    ```
+
+  * 创建一个不继承 `Object` 的100%的纯对象
+
+    ```js
+    const pureObject = Object.create(null);
+    console.log(pureObject); // {}
+    console.log(pureObject.constructor); // undefined
+    console.log(pureObject.toString); // undefined
+    console.log(pureObject.hasOwnProperty); // undefined
+    ```
+
+  * 格式化 `JSON` 代码
+
+    ```js
+    const obj = { 
+      foo: { bar: [11, 22, 33, 44], baz: { bing: true, boom: 'Hello' } } 
+    };
+
+    // 第三个参数为格式化需要的空格数目
+    JSON.stringify(obj, null, 4); 
+    // =>"{
+    // =>    "foo": {
+    // =>        "bar": [
+    // =>            11,
+    // =>            22,
+    // =>            33,
+    // =>            44
+    // =>        ],
+    // =>        "baz": {
+    // =>            "bing": true,
+    // =>            "boom": "Hello"
+    // =>        }
+    // =>    }
+    // =>}"
+
+    ```
+
+  * 扁平化多维数组
+
+    ```js
+    // 二维数组
+    const arr = [1, [2, 3], [44, 55]];
+    const flatArr = [].concat(...arr); // [1, 2, 3, 44, 55];
+
+    // 使用递归，扁平化任意维度数组
+    function flattenArray(arr) {
+      const flattened = [].concat(...arr);
+      return flattened.some(item => Array.isArray(item)) ? 
+        flattenArray(flattened) : flattened;
+    }
+
+    const arr = [11, [22, 33], [44, [55, 66, [77, [88]], 99]]];
+    const flatArr = flattenArray(arr); // [11, 22, 33, 44, 55, 66, 77, 88, 99]
+    ```
+  
+  * 精确到指定位数的小数
+    
+    科学计数法：
+    `1e5 => 100000`;
+    `1e-5 => 0.00001`;
+
+    ```js
+    const round = (n, decimals = 0) => Number(`${Math.round(`${n}e${decimals}`)}e-${decimals}`)
+    round(1.345, 2)         // 1.35
+    round(1.345, 1)         // 1.3
+    ```
+
+  * 将数组平铺到指定深度
+
+  ```js
+  const flatten = (arr, depth = 1) =>
+  depth != 1
+    ? arr.reduce((a, v) => a.concat(Array.isArray(v) ? flatten(v, depth - 1) : v), [])
+    : arr.reduce((a, v) => a.concat(v), []);
+  flatten([1, [2], 3, 4]);                    		 // [1, 2, 3, 4]
+  flatten([1, [2, [3, [4, 5], 6], 7], 8], 2);           // [1, 2, 3, [4, 5], 6, 7, 8]
+  ```
+
+  * 使用解构删除不必要属性
+
+  ```js
+  let {a, b, ...obj} = {a: 2, b: 3, c: 4, d: 5, e: 6, f: 7};
+  
+  console.log(obj); // {c: 4, d: 5, e: 6, f: 7}
+  ```
+
+  * 在函数参数中解构嵌套对象
+
+  ```js
+  const car = {
+    model: 'bmw 2018',
+    engine: {
+      v6: true,
+      turbo: true,
+      vin: 123456,
+    },
+  };
+  const modelAndVIN = ({model, engine: {vin}}) => {
+    console.log(`model: ${model} vin: ${vin}`);
+  }
+  modelAndVIN(car); // => model: bmw 2018  vin: 12345
+  ```
